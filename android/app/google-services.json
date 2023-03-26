@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "761331477854",
+    "project_id": "nieak-cc562",
+    "storage_bucket": "nieak-cc562.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761331477854:android:cfcc2a317363868f5b33cf",
+        "android_client_info": {
+          "package_name": "com.judai.nieak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761331477854-56o9sf8tjktqio0cfp6s8ne6tqnfs0fu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.judai.nieak",
+            "certificate_hash": "6cbf2ee9871fe02fc4fbd7aa1fcf462afac0e647"
+          }
+        },
+        {
+          "client_id": "761331477854-iglhh0a3qm5l733thba27fn74jjik1d1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc9Nib3hlOZCj3hlBFgB7MZQfRvfdU-U4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761331477854-iglhh0a3qm5l733thba27fn74jjik1d1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
