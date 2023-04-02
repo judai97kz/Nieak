@@ -1,11 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nieak/onlines/statepages/login_state.dart';
+import 'package:nieak/onlines/view_pages/forget_password_page.dart';
 import 'package:nieak/onlines/view_pages/signup_page.dart';
 import '../modelviews/login_modelview.dart';
-import 'add_new_product_page.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final loginaction = LoginModelView();
   final loginstate = Get.put(LoginState());
-  final username = TextEditingController();
+  final email = TextEditingController();
   final password = TextEditingController();
   final _phoneController = TextEditingController();
 
@@ -59,106 +58,137 @@ class _LoginPageState extends State<LoginPage> {
                     ? const SizedBox(
                         height: 0,
                       )
-                    : Container(
-                        height: 270,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white54,
-                                    labelText: "Email"),
-                                style: const TextStyle(color: Colors.black),
-                                textInputAction: TextInputAction.next,
-                                controller: username,
+                    : Obx(
+                  ()=> Container(
+                          height: 300,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                      errorText: loginstate.emailtext.value == "" ?null:loginstate.emailtext.value,
+                                      filled: true,
+                                      fillColor: Colors.white70,
+                                      labelText: "Email"),
+                                  style: const TextStyle(color: Colors.black),
+                                  textInputAction: TextInputAction.next,
+                                  controller: email,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Stack(
+                              Stack(
                                 children: [
-                                  TextField(
-                                    decoration: const InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.white54,
-                                        labelText: "Mật khẩu"),
-                                    style: const TextStyle(color: Colors.black),
-                                    onSubmitted: (passwordcontroller) {
-                                      loginaction.signIn(username.text,
-                                          passwordcontroller, context);
-                                    },
-                                    textInputAction: TextInputAction.done,
-                                    controller: password,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            GestureDetector(
-                                onTap: () {
-                                  loginaction.signIn(
-                                      username.text, password.text, context);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 40,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.orangeAccent.withOpacity(0.5),
-                                            offset: Offset(0.0, 1.0),
-                                            blurRadius: 2.0,
-                                            spreadRadius: 0.0,
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        TextField(
+                                          decoration: InputDecoration(
+                                              errorText: loginstate.passtext.value == "" ?null:loginstate.passtext.value,
+                                              filled: true,
+                                              fillColor: Colors.white70,
+                                              labelText: "Mật khẩu"),
+                                          obscureText: loginstate.hidepass.value == false?true:false,
+                                          style: const TextStyle(color: Colors.black),
+                                          onSubmitted: (passwordcontroller) {
+                                            loginstate.CheckNullText(email.text, password.text, context);
+                                          },
+                                          textInputAction: TextInputAction.done,
+                                          controller: password,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                if(loginstate.hidepass==false){
+                                                  loginstate.hidepass.value=true;
+                                                }else{
+                                                  loginstate.hidepass.value=false;
+                                                }
+                                              },
+                                              child: loginstate.hidepass.value == false?Icon(Icons.remove_red_eye,):Icon(Icons.remove_red_eye_outlined),
+                                            ),
                                           ),
-                                        ],
-                                        border:
-                                            Border.all(color: Colors.black)),
-                                    child: const Center(
-                                        child: Text(
-                                      "Đăng Nhập",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color:
-                                              Color.fromARGB(242, 10, 14, 0)),
-                                    )),
-                                  ),
-                                )),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => SignupPage()));
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Chưa có tài khoản?",style: TextStyle(color: Colors.white),),
-                                  GestureDetector(
-                                    child: const Text(
-                                      "Đăng ký ngay!",
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: Colors.blue),
+                                        )
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  "Hoặc",
-                                  style: TextStyle(color: Colors.black),
+                              GestureDetector(
+                                  onTap: () {
+                                   loginstate.CheckNullText(email.text, password.text, context);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height: 40,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.orangeAccent.withOpacity(0.5),
+                                              offset: const Offset(0.0, 1.0),
+                                              blurRadius: 2.0,
+                                              spreadRadius: 0.0,
+                                            ),
+                                          ],
+                                          border:
+                                              Border.all(color: Colors.black)),
+                                      child: const Center(
+                                          child: Text(
+                                        "Đăng Nhập",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color:
+                                                Color.fromARGB(242, 10, 14, 0)),
+                                      )),
+                                    ),
+                                  )),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => SignupPage()));
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Chưa có tài khoản?",style: TextStyle(color: Colors.white),),
+                                    GestureDetector(
+                                      child: const Text(
+                                        "Đăng ký ngay!",
+                                        style: TextStyle(
+                                            decoration: TextDecoration.underline,
+                                            color: Colors.blue),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ForgetPasswordPage()));
+                                },
+                                child:  Text("Quên mật khẩu?",style: TextStyle(color: Colors.white),),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                                child: Center(
+                                  child: Text(
+                                    "Hoặc",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      )),
+                    )),
                 Obx(() => loginstate.phonestate == 0
                     ? SizedBox(
                         height: 0,

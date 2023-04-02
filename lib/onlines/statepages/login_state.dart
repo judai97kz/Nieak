@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:nieak/onlines/modelviews/login_modelview.dart';
 
 class LoginState extends GetxController {
   var mailstate = 0.obs;
@@ -9,13 +10,16 @@ class LoginState extends GetxController {
   var emailtext = "".obs;
   var passtext ="".obs;
   var phonetext = "".obs;
+  var hidepass = false.obs;
   CheckNullText(String email, String password,BuildContext context){
     if(email==""){
       emailtext.value="Không được để trống";
       return;
     }
+    emailtext.value = "";
     if(email.contains("@")==false || email.contains(".com")==false){
       emailtext.value="Định dạng email chưa chính xác";
+      print(emailtext);
       return;
     }
     emailtext.value = "";
@@ -24,5 +28,8 @@ class LoginState extends GetxController {
       return;
     }
     passtext.value ="";
+    final loginaction = Get.put(LoginModelView());
+    loginaction.signIn(
+        email, password, context);
   }
 }

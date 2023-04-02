@@ -54,7 +54,7 @@ class _VerificationPageState extends State<VerificationPage> {
                         .signInWithCredential(credential);
                     if (userCredential.user != null) {
                       userstate.userinfo.value = userCredential;
-                      checkvertifystate.checkNewUser(
+                      await checkvertifystate.checkNewUser(
                           userCredential.user!.uid, context);
                     } else {
                       print("Thât bại");

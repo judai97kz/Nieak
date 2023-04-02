@@ -3,6 +3,7 @@ class UserModel {
   final String phone;
   final String address;
   final String idcart;
+  final String birthday;
   final int role;
   final String imageAvatar;
   int wallet;
@@ -14,9 +15,11 @@ class UserModel {
       required this.idcart,
       required this.imageAvatar,
       required this.wallet,
+        required this.birthday,
       required this.role});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+      birthday: json['birthday'],
       name: json['name'],
       phone: json['phone'],
       address: json['address'],
@@ -32,6 +35,7 @@ class UserModel {
         'idcart': idcart,
         'wallet': wallet,
         'role': role,
-        'imageAvatar':imageAvatar
+        'imageAvatar':imageAvatar,
+    'birthday':birthday
       };
 }

@@ -31,7 +31,27 @@ class _SignupPageState extends State<SignupPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Align(
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      "assets/public/signup_logo.png",
+                      height: 100,
+                    )),
+                const Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      "Đăng Ký Tài Khoản",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
+                    )),
+              ],
+            ),
             Obx(
               () => Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -43,9 +63,9 @@ class _SignupPageState extends State<SignupPage> {
                         ? null
                         : signupstate.emailstate.value,
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(
-                            width: 1, color: Colors.cyanAccent)),
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.black)),
                     // ignore: unrelated_type_equality_checks
                   ),
                   controller: _usernamecontroller,
@@ -53,7 +73,7 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
             Obx(
-                ()=> Stack(
+              () => Stack(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -61,11 +81,13 @@ class _SignupPageState extends State<SignupPage> {
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         labelText: "Mật Khẩu",
-                        errorText: signupstate.passstate==""?null:signupstate.passstate.value,
+                        errorText: signupstate.passstate == ""
+                            ? null
+                            : signupstate.passstate.value,
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
-                                width: 1, color: Colors.cyanAccent)),
+                                width: 1, color: Colors.black)),
                         // ignore: unrelated_type_equality_checks
                       ),
                       controller: _passwordcontroller,
@@ -85,17 +107,19 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
             Obx(
-                ()=> Padding(
+              () => Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: "Mật Khẩu Lặp Lại",
-                    errorText: signupstate.repeatstate==""?null:signupstate.repeatstate.value,
+                    errorText: signupstate.repeatstate == ""
+                        ? null
+                        : signupstate.repeatstate.value,
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            const BorderSide(width: 1, color: Colors.cyanAccent)),
+                            const BorderSide(width: 1, color: Colors.black)),
                   ),
                   controller: _repeatcontroller,
                 ),
@@ -105,11 +129,10 @@ class _SignupPageState extends State<SignupPage> {
             ElevatedButton(
                 onPressed: () async {
                   signupstate.CheckNull(
-                    _usernamecontroller.text,
-                    _passwordcontroller.text,
-                    _repeatcontroller.text,
-                    context
-                  );
+                      _usernamecontroller.text,
+                      _passwordcontroller.text,
+                      _repeatcontroller.text,
+                      context);
                 },
                 child: const Text("ĐĂNG KÝ")),
             // ignore: prefer_const_constructors
@@ -122,53 +145,3 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 }
-
-//
-// Padding(
-// padding: const EdgeInsets.all(8.0),
-// child: TextField(
-// textInputAction: TextInputAction.next,
-// decoration: InputDecoration(
-// labelText: "Họ Và Tên",
-// enabledBorder: OutlineInputBorder(
-// borderRadius: BorderRadius.circular(20),
-// borderSide:
-// const BorderSide(width: 1, color: Colors.cyanAccent)),
-// // ignore: unrelated_type_equality_checks
-// ),
-// controller: _namecontroller,
-// ),
-// ),
-// Padding(
-// padding: const EdgeInsets.all(8.0),
-// child: TextField(
-// textInputAction: TextInputAction.next,
-// decoration: InputDecoration(
-// labelText: "Số Điện Thoại",
-// enabledBorder: OutlineInputBorder(
-// borderRadius: BorderRadius.circular(20),
-// borderSide:
-// const BorderSide(width: 1, color: Colors.cyanAccent)),
-// // ignore: unrelated_type_equality_checks
-// ),
-// controller: _phonecontroller,
-// ),
-// ),
-// Padding(
-// padding: const EdgeInsets.all(8.0),
-// child: TextField(
-// onSubmitted: (text) {
-// SignUpAction();
-// },
-// textInputAction: TextInputAction.done,
-// decoration: InputDecoration(
-// labelText: "Địa Chỉ",
-// enabledBorder: OutlineInputBorder(
-// borderRadius: BorderRadius.circular(20),
-// borderSide:
-// const BorderSide(width: 1, color: Colors.cyanAccent)),
-// // ignore: unrelated_type_equality_checks
-// ),
-// controller: _addresscontroller,
-// ),
-// ),
