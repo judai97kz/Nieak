@@ -1,0 +1,43 @@
+Future<void> addValueToArray(
+      String documentId, String fieldName, dynamic value) async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    final DocumentReference documentReference =
+        _firestore.collection('imagebanner').doc(documentId);
+    await documentReference.update({
+      fieldName: FieldValue.arrayUnion([value]),
+    });
+  }
+
+  Future<Map<String, dynamic>?> getValueFromMapInArray(
+      String documentId, String arrayFieldName, int mapIndex) async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    final DocumentReference documentReference =
+        _firestore.collection('user').doc(documentId);
+
+    DocumentSnapshot documentSnapshot = await documentReference.get();
+    List<dynamic> arrayField = documentSnapshot[arrayFieldName];
+
+    if (arrayField == null ||
+        arrayField.isEmpty ||
+        arrayField.length <= mapIndex ||
+        !(arrayField[mapIndex] is Map)) {
+      return null;
+    }
+    print(arrayField[mapIndex]);
+    return arrayField[mapIndex] as Map<String, dynamic>;
+  }
+
+  Future<int> getArrayLength(String documentId, String arrayFieldName) async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    final DocumentReference documentReference =
+        _firestore.collection('your_collection_name').doc(documentId);
+
+    DocumentSnapshot documentSnapshot = await documentReference.get();
+    List<dynamic> arrayField = documentSnapshot[arrayFieldName];
+
+    if (arrayField == null) {
+      return 0;
+    }
+
+    return arrayField.length;
+  }
