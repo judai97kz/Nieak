@@ -28,7 +28,6 @@ class CreateInfoState extends GetxController {
   }
 
   Future<String> uploadFile(PlatformFile? pickedFile) async {
-
     final userstate = Get.put(UserState());
     UploadTask? uploadTask;
     final path = 'User/${userstate.userinfo.value?.user!.uid}/Avatar';
@@ -40,9 +39,11 @@ class CreateInfoState extends GetxController {
     return urlDL;
   }
 
-  _addMapToArray(String documentId, String fieldName, Map<String, dynamic> mapToAdd) async {
+  _addMapToArray(String documentId, String fieldName,
+      Map<String, dynamic> mapToAdd) async {
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    final DocumentReference documentReference = _firestore.collection('usercart').doc(documentId);
+    final DocumentReference documentReference =
+        _firestore.collection('user').doc(documentId);
     await documentReference.update({
       fieldName: FieldValue.arrayUnion([mapToAdd]),
     });
@@ -59,12 +60,12 @@ class CreateInfoState extends GetxController {
       return;
     }
     fullname.value = "";
-   if(userstate.userinfo.value!.user!.email == null && email==""){
-     gmailtext.value = "Không được bỏ trống!";
-     return;
-   }
+    if (userstate.userinfo.value!.user!.email == null && email == "") {
+      gmailtext.value = "Không được bỏ trống!";
+      return;
+    }
     gmailtext.value = "";
-   print(userstate.userinfo.value!.user!.phoneNumber);
+    print(userstate.userinfo.value!.user!.phoneNumber);
     if (userstate.userinfo.value!.user!.phoneNumber == null && phone == "") {
       phonetext.value = "Không được bỏ trống!";
       return;
@@ -82,19 +83,15 @@ class CreateInfoState extends GetxController {
         phone: phone,
         address: address,
         birthday: date,
-        idcart: "Judai4234",
+        cart: [],
         imageAvatar: imgUrl,
         wallet: 1233435435,
         role: 1);
     firestore
         .collection('user')
-        .doc(userstate.userinfo.value!.user!.uid)
+        .doc(userstate.uidtemp.value)
         .set(newuser.toJson());
-    Map<String, dynamic> mapToAdd = {
-       'nameproduct': null,
-       'price': null,
-       'amout': null, };
-    await _addMapToArray(userstate.userinfo.value!.user!.uid, 'cart',mapToAdd);
+    // await _addMapToArray(userstate.uidtemp.value, 'cart');
     try {
       final CollectionReference myCollectionRef =
           FirebaseFirestore.instance.collection('user');

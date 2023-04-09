@@ -45,6 +45,10 @@ dependencies:
   shared_preferences: any
   intl: ^0.18.0
   photo_view: any
+  csc_picker: ^0.2.7
+  flutter_paypal: any
+  flutter_rating_bar: ^4.0.1
+  fluttertoast: any
 
 
 dev_dependencies:

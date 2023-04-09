@@ -47,10 +47,7 @@ class _HomePageState extends State<HomePage> {
               actions: [
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => AddNewProductPage()));
+
                     },
                     child: Text("Hello"))
               ],
@@ -81,7 +78,25 @@ class _HomePageState extends State<HomePage> {
                                                 alignment: Alignment.center,
                                                 child: Container(
                                                   child: Image.network(
-                                                      homeState.list_banner[i]),
+                                                    homeState.list_banner[i],
+                                                    loadingBuilder: (context,
+                                                        child,
+                                                        loadingProgress) {
+                                                      if (loadingProgress ==
+                                                          null) return child;
+                                                      return Center(
+                                                        child:
+                                                            CircularProgressIndicator(),
+                                                      );
+                                                    },
+                                                    errorBuilder: (context,
+                                                        error, stackTrace) {
+                                                      return Center(
+                                                        child:
+                                                            Icon(Icons.error),
+                                                      );
+                                                    },
+                                                  ),
                                                 )),
                                           ],
                                         )
@@ -151,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return GestureDetector(
-                                      onTap: () {
+                                      onTap: () async {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(

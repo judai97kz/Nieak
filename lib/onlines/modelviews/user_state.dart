@@ -10,6 +10,7 @@ class UserState extends GetxController {
   final isEmailVerified = false.obs;
   final userinfo = Rxn<UserCredential>();
   final user = Rxn<UserModel>(null);
+  final uidtemp = "".obs;
 
   checkEmailVerified(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser;

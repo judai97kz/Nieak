@@ -2,7 +2,7 @@ class UserModel {
   final String name;
   final String phone;
   final String address;
-  final String idcart;
+  final List cart;
   final String birthday;
   final int role;
   final String imageAvatar;
@@ -12,7 +12,7 @@ class UserModel {
       {required this.name,
       required this.phone,
       required this.address,
-      required this.idcart,
+      required this.cart,
       required this.imageAvatar,
       required this.wallet,
         required this.birthday,
@@ -23,7 +23,7 @@ class UserModel {
       name: json['name'],
       phone: json['phone'],
       address: json['address'],
-      idcart: json['idcart'],
+      cart: json['cart'],
       imageAvatar: json['imageAvatar'],
       wallet: json['wallet'],
       role: json['role']);
@@ -32,7 +32,7 @@ class UserModel {
         'name': name,
         'phone': phone,
         'address': address,
-        'idcart': idcart,
+        'cart':cart,
         'wallet': wallet,
         'role': role,
         'imageAvatar':imageAvatar,

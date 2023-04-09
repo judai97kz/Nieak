@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nieak/onlines/modelviews/cart_modelview.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/statepages/management_state.dart';
+import 'package:nieak/onlines/view_pages/bill_page.dart';
 import 'package:nieak/onlines/view_pages/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +16,7 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   final userState = Get.put(UserState());
+  final cartModel = Get.put(CartModelView());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +36,7 @@ class _UserPageState extends State<UserPage> {
                         homemana.currentindex.value = 0;
                         userState.user.value = null;
                         userState.userinfo.value = null;
+                        cartModel.list_cart.value = [];
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                                 builder: (context) => const LoginPage()),
@@ -164,7 +168,11 @@ class _UserPageState extends State<UserPage> {
                     ),
                   ],
                 ),
-              )
+              ),
+              ElevatedButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (builder)=>BillPage()));
+              }, child: Text("Lịch Sử Mua Hàng"))
+
             ],
           ),
         ),

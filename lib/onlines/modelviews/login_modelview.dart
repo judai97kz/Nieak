@@ -61,12 +61,10 @@ class LoginModelView {
       phonenumber = phonenumber.substring(1);
     }
     phonenumber = "+84" + phonenumber;
-    try{
+    try {
       FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: phonenumber,
-        verificationCompleted: (PhoneAuthCredential credential) async {
-
-        },
+        verificationCompleted: (PhoneAuthCredential credential) async {},
         verificationFailed: (FirebaseAuthException e) {
           print("Loi");
         },
@@ -83,7 +81,7 @@ class LoginModelView {
         codeAutoRetrievalTimeout: (String verificationId) {},
         timeout: Duration(seconds: 100),
       );
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
@@ -95,6 +93,7 @@ class LoginModelView {
     final docSnapshot = await myDocRef.get();
     try {
       if (docSnapshot.exists) {
+        roleuser.uidtemp.value = uid;
         await roleuser.InfoUser(uid);
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
@@ -120,6 +119,7 @@ class LoginModelView {
       final DocumentReference myDocRef = myCollectionRef.doc(uid);
       final docSnapshot = await myDocRef.get();
       if (docSnapshot.exists) {
+        roleuser.uidtemp.value = uid;
         await roleuser.InfoUser(uid);
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('uid', uid);

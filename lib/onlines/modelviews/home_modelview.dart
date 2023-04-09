@@ -6,6 +6,7 @@ class HomeModelView extends GetxController {
   var list_product = [].obs;
   var list_banner = [].obs;
   var list_brand = [].obs;
+  var list_product_brand =[].obs;
 
   GetAllBrand() async {
     CollectionReference myCollection =
@@ -20,6 +21,13 @@ class HomeModelView extends GetxController {
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
         await FirebaseFirestore.instance.collection('product').get();
     list_product.value = querySnapshot.docs.map((doc) => doc.data()).toList();
+  }
+
+  GetProductTemp(String brand) async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+    await FirebaseFirestore.instance.collection('product').where('brand', isEqualTo: brand).get();
+    list_product_brand.value = querySnapshot.docs.map((doc) => doc.data()).toList();
+    print(list_product_brand);
   }
 
   GetImageBanner() async {
