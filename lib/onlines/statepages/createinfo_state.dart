@@ -86,7 +86,8 @@ class CreateInfoState extends GetxController {
         cart: [],
         imageAvatar: imgUrl,
         wallet: 1233435435,
-        role: 1);
+        disable: false,
+        role: 0);
     firestore
         .collection('user')
         .doc(userstate.uidtemp.value)

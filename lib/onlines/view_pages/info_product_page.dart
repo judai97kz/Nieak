@@ -12,6 +12,8 @@ import 'package:nieak/onlines/modelviews/comment_modelview.dart';
 import 'package:nieak/onlines/modelviews/home_modelview.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/statepages/info_product_state.dart';
+import 'package:nieak/onlines/statepages/management_state.dart';
+import 'package:nieak/onlines/view_pages/management_page.dart';
 import 'package:photo_view/photo_view.dart';
 
 class InfoProductPage extends StatefulWidget {
@@ -31,6 +33,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
   final commentModel = Get.put(CommentModelView());
   final homeModel = Get.put(HomeModelView());
   final _commentController = TextEditingController();
+ final managementState = Get.put(ManagementState());
   Future<void> _onRefresh() async {
     setState(() {
       print("Hello");
@@ -80,7 +83,40 @@ class _InfoProductPageState extends State<InfoProductPage> {
         children: [
           Scaffold(
               resizeToAvoidBottomInset: true,
-              appBar: AppBar(),
+              appBar: AppBar(actions: [
+                GestureDetector(
+                  onTap: (){
+                    managementState.currentindex.value=1;
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          const Align(
+                            alignment: Alignment.center,
+                            child: Icon(Icons.shopping_cart),
+                          ),
+                          Align(
+                              alignment: Alignment.topRight,
+                              child: Obx(
+                                    () => Padding(
+                                  padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                  child: CircleAvatar(
+                                    radius: 7,
+                                    backgroundColor: Colors.red,
+                                    child: Text(
+                                      cartModel.list_cart.length.toString(),
+                                      style: const TextStyle(fontSize: 10),
+                                    ),
+                                  ),
+                                ),
+                              )),
+                        ]),
+                  ),
+                ),
+              ],),
               body: RefreshIndicator(
                 onRefresh: _onRefresh,
                 child: Stack(children: [

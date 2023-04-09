@@ -1,3 +1,4 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:nieak/onlines/mini_widget/product_widget.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/statepages/orient_state.dart';
-import 'package:nieak/onlines/view_pages/add_new_product_page.dart';
 import 'package:nieak/onlines/view_pages/info_product_page.dart';
 
 import '../modelviews/home_modelview.dart';
@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   final homeState = Get.put(HomeModelView());
   final orientState = Get.put(OrientationController());
   final roleuser = Get.put(UserState());
+  final findtext = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -45,11 +46,22 @@ class _HomePageState extends State<HomePage> {
             appBar: AppBar(
               automaticallyImplyLeading: false,
               actions: [
-                ElevatedButton(
-                    onPressed: () {
-
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: AnimSearchBar(
+                    width: MediaQuery.of(context).orientation ==
+                            Orientation.portrait
+                        ? 300
+                        : 600,
+                    textController: findtext,
+                    onSuffixTap: () {},
+                    autoFocus: true,
+                    // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+                    onSubmitted: (key) {
+                      homeState.GetProductTemp(findtext.text);
                     },
-                    child: Text("Hello"))
+                  ),
+                ),
               ],
               title: Text("NIEAK"),
             ),

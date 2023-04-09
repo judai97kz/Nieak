@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/view_pages/create_info_page.dart';
+import 'package:nieak/onlines/view_pages/disable_account_page.dart';
 import 'package:nieak/onlines/view_pages/management_page.dart';
 import 'package:nieak/onlines/view_pages/vertify_email_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -93,15 +94,25 @@ class LoginModelView {
     final docSnapshot = await myDocRef.get();
     try {
       if (docSnapshot.exists) {
-        roleuser.uidtemp.value = uid;
-        await roleuser.InfoUser(uid);
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => ManagementPage(),
-          ),
-        );
+        if (docSnapshot['disable'] == true) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => DisableAccountPage(),
+            ),
+          );
+        }else{
+          roleuser.uidtemp.value = uid;
+          await roleuser.InfoUser(uid);
+          // ignore: use_build_context_synchronously
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => ManagementPage(),
+            ),
+          );
+        }
+
       } else {
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
@@ -124,19 +135,25 @@ class LoginModelView {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('uid', uid);
         Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => ManagementPage(),
-          ),
-        );
+        if (docSnapshot['disable'] == true) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => DisableAccountPage(),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => ManagementPage(),
+            ),
+          );
+        }
       } else {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (builder) => CreateInfoPage()));
       }
-    } catch (e) {
-      print(e);
-      print("loi");
-    }
+    } catch (e) {}
   }
 }

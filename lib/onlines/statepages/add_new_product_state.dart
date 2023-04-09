@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -114,7 +113,7 @@ class AddNewProductState extends GetxController {
       homestate.GetAllProduct();
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Thêm Sản Phẩm Thành Công!')));
-
+      Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Sản Phẩm Đã Tồn Tại!')));

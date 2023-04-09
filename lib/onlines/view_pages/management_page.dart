@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:nieak/onlines/modelviews/cart_modelview.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/statepages/management_state.dart';
 import 'package:nieak/onlines/view_pages/add_new_product_page.dart';
@@ -17,6 +18,7 @@ class ManagementPage extends StatefulWidget {
 
 class _ManagementPageState extends State<ManagementPage> {
   final managementState = Get.put(ManagementState());
+  final cartState = Get.put(CartModelView());
   final roleuser = Get.put(UserState());
   var _screen = [];
 
@@ -80,7 +82,7 @@ class _ManagementPageState extends State<ManagementPage> {
                                           radius: 7,
                                           backgroundColor: Colors.red,
                                           child: Text(
-                                            "Tam",
+                                            cartState.list_cart.length.toString(),
                                             style:
                                                 const TextStyle(fontSize: 10),
                                           ),
@@ -134,7 +136,7 @@ class _ManagementPageState extends State<ManagementPage> {
                                           radius: 7,
                                           backgroundColor: Colors.red,
                                           child: Text(
-                                            "Tam",
+                                            cartState.list_cart.length.toString(),
                                             style:
                                                 const TextStyle(fontSize: 10),
                                           ),

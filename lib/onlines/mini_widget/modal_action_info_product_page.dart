@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:nieak/onlines/modelviews/cart_modelview.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/statepages/cart_state.dart';
 import 'package:nieak/onlines/statepages/info_product_state.dart';
@@ -10,6 +11,7 @@ import 'package:nieak/onlines/view_pages/pay_page.dart';
 class ActionModal {
   final ipState = Get.put(InfoProductState());
   final usertemp = Get.put(UserState());
+  final cartState =Get.put(CartModelView());
 
   // Future<void> addMapToArray(String documentId, String fieldName,
   //     Map<String, dynamic> mapToAdd) async {
@@ -158,6 +160,7 @@ class ActionModal {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Thêm Sản Phẩm Thành Công!')));
+                          cartState.getAllMapsInArray( usertemp.uidtemp.toString());
                         },
                         child: const Text("Thêm"),
                       ),
