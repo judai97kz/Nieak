@@ -43,13 +43,15 @@ dependencies:
   file_picker: any
   carousel_slider: ^4.2.1
   shared_preferences: any
-  intl: ^0.18.0
+  intl: any
   photo_view: any
   csc_picker: ^0.2.7
   flutter_paypal: any
   flutter_rating_bar: ^4.0.1
   fluttertoast: any
   anim_search_bar: ^2.0.3
+  google_sign_in: any
+
 
 
 dev_dependencies:

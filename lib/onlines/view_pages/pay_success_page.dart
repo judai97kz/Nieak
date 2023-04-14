@@ -22,9 +22,13 @@ class _PaySuccessPageState extends State<PaySuccessPage> {
         },
         child: Container(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                  "Thanh Toán Thanh Công, đơn hàng của bạn sẽ sớm được xác nhận sớm"),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                    "Thanh toán thành công, đơn hàng của bạn sẽ sớm được xác nhận!",style: TextStyle(),textAlign: TextAlign.center,),
+              ),
               ElevatedButton(
                   onPressed: () {
                     payState.backFuntion(context);

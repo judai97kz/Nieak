@@ -148,6 +148,8 @@ class ActionModal {
                       child: ElevatedButton(
                         onPressed: () async {
                           Map<String, dynamic> mapToAdd = {
+                            'sale':shoe['sale'],
+                            'idshoes': shoe["idshoes"],
                             'nameproduct': shoe["nameshoes"],
                             'price': shoe["price"],
                             'image': shoe['image'][0],
@@ -262,6 +264,8 @@ class ActionModal {
                       child: ElevatedButton(
                         onPressed: () async {
                           Map<String, dynamic> mapToAdd = {
+                            'sale':shoe['sale'],
+                            'idshoes': shoe["idshoes"],
                             'nameproduct': shoe["nameshoes"],
                             'price': shoe["price"],
                             'image': shoe['image'][0],

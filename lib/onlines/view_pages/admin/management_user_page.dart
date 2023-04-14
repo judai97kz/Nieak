@@ -22,6 +22,9 @@ class _ManagementUserPageState extends State<ManagementUserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Quản lý người dùng"),
+      ),
       body: Obx(()=>homeState.list_user.length==0?CircularProgressIndicator():ListView.builder(
         itemCount: homeState.list_user.length,
         itemBuilder: (context,index){

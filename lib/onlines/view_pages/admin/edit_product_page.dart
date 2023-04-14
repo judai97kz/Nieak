@@ -5,27 +5,25 @@ import 'package:get/get.dart';
 import 'package:nieak/onlines/modelviews/home_modelview.dart';
 import 'package:nieak/onlines/statepages/add_new_product_state.dart';
 
-class AddNewProductPage extends StatefulWidget {
-  const AddNewProductPage({Key? key}) : super(key: key);
+class EditProductPage extends StatefulWidget {
+  final product;
+  const EditProductPage({Key? key, required this.product}) : super(key: key);
   @override
-  State<AddNewProductPage> createState() => _AddNewProductPageState();
+  State<EditProductPage> createState() => _EditProductPageState();
 }
 
-class _AddNewProductPageState extends State<AddNewProductPage> {
+class _EditProductPageState extends State<EditProductPage> {
   PlatformFile? pickedFile;
   List<File> files = [];
 
-  List<String> ListUrl = [];
   final homestate = Get.put(HomeModelView());
   final addState = Get.put(AddNewProductState());
-  final _idshoes = TextEditingController();
   final _nameshoes = TextEditingController();
   final _priceshoes = TextEditingController();
   final _amoutshoes = TextEditingController();
   final _minshoes = TextEditingController();
   final _maxshoes = TextEditingController();
   final _colorshoes = TextEditingController();
-
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(
@@ -38,7 +36,19 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     });
   }
 
-  Future uploadFile() async {}
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _nameshoes.text = widget.product['nameshoes'];
+    addState.defaulValue.value = widget.product['brand'];
+    _priceshoes.text = widget.product['price'].toString();
+    _minshoes.text = widget.product['minsize'].toString();
+    _maxshoes.text = widget.product['maxsize'].toString();
+    _amoutshoes.text = widget.product['amount'].toString();
+    _colorshoes.text = widget.product['color'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +80,20 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
                   child: files.length == 0
-                      ? Image.network("https://firebasestorage.googleapis.com/v0/b/nieak-cc562.appspot.com/o/errorimage%2FnoImage.png?alt=media&token=ada38ac7-8f4d-4f26-a6fd-8cd24e7e660c")
+                      ? SizedBox(
+                          height: 250,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: widget.product['imagenumber'],
+                              itemBuilder: (context, index) => Container(
+                                  height: 50,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.network(
+                                        widget.product['image'][index]),
+                                  ))),
+                        )
                       : Container(
                           height: 250,
                           child: ListView.builder(
@@ -95,19 +118,6 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                 () => Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    controller: _idshoes,
-                    decoration: InputDecoration(
-                        labelText: "Mã sản phẩm",
-                        errorText: addState.idtext.value == ""
-                            ? null
-                            : addState.idtext.value),
-                  ),
-                ),
-              ), //Ma sp
-              Obx(
-                () => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
                     controller: _nameshoes,
                     decoration: InputDecoration(
                         labelText: "Tên sản phẩm",
@@ -117,34 +127,36 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   ),
                 ),
               ), //ten sp
-              Obx(
-                () => homestate.list_brand.length == 0
-                    ? Text("------")
-                    : Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: double.infinity,
-                          child: DropdownButton(
-                            isExpanded: true,
-                            value: addState.defaulValue.value,
-                            items: [
-                              DropdownMenuItem(
-                                  value: "", child: Text("Chọn thương hiệu")),
-                              for (int i = 0;
-                                  i < homestate.list_brand.length;
-                                  i++)
-                                if (homestate.list_brand[i] != 'All')
-                                  DropdownMenuItem(
-                                      value: homestate.list_brand[i],
-                                      child: Text(homestate.list_brand[i]))
-                            ],
-                            onChanged: (newValue) {
-                              addState.defaulValue.value =
-                                  newValue.toString();
-                            },
+              Container(
+                child: Obx(
+                  () => homestate.list_brand.length == 0
+                      ? Text("------")
+                      : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: double.infinity,
+                            child: DropdownButton(
+                              isExpanded: true,
+                              value: addState.defaulValue.value,
+                              items: [
+                                DropdownMenuItem(
+                                    value: "", child: Text("Chọn thương hiệu")),
+                                for (int i = 0;
+                                    i < homestate.list_brand.length;
+                                    i++)
+                                  if (homestate.list_brand[i] != 'All')
+                                    DropdownMenuItem(
+                                        value: homestate.list_brand[i],
+                                        child: Text(homestate.list_brand[i]))
+                              ],
+                              onChanged: (newValue) {
+                                addState.defaulValue.value =
+                                    newValue.toString();
+                              },
+                            ),
                           ),
                         ),
-                      ),
+                ),
               ),
               Obx(() => addState.brandtext.value == ""
                   ? SizedBox(
@@ -211,8 +223,9 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
               ), //mau
               ElevatedButton(
                   onPressed: () async {
-                    addState.checkNull(
-                        _idshoes.text,
+                    print(widget.product['image']);
+                    addState.updateData(
+                        widget.product['idshoes'],
                         _nameshoes.text,
                         addState.defaulValue.value,
                         _priceshoes.text,
@@ -220,10 +233,13 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                         _maxshoes.text,
                         _amoutshoes.text,
                         _colorshoes.text,
-                        files,context );
+                        files,
+                        context,
+                      widget.product['image']
+                    );
                     homestate.GetAllProduct();
                   },
-                  child: Text("Thêm sản phẩm"))
+                  child: Text("Cập nhật thông tin"))
             ],
           ),
         ),

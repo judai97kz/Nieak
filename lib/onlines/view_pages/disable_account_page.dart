@@ -11,8 +11,11 @@ class _DisableAccountPageState extends State<DisableAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Text("Tai khoan ban da bi vo hieu hoa do vi pham chinh sach su dung cua chung toi"),
+      appBar: AppBar(
+        title: Text("Thông báo"),
+      ),
+      body: Center(
+        child: Text("Tài khoản của bạn đã bị vô hiệu hóa do vi phạm chính sách của chúng tôi!",textAlign: TextAlign.center,),
       ),
     );
   }

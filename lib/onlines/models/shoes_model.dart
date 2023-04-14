@@ -11,6 +11,7 @@ class ShoesModel {
   final int maxSize;
   final String color;
   final String dateadd;
+  final int sale;
 
   ShoesModel(
       {required this.idshoes,
@@ -24,8 +25,8 @@ class ShoesModel {
       required this.minSize,
       required this.maxSize,
       required this.color,
-        required this.dateadd
-      });
+      required this.dateadd,
+      required this.sale});
 
   factory ShoesModel.fromJson(Map<String, dynamic> json) => ShoesModel(
       idshoes: json['idshoes'],
@@ -39,21 +40,22 @@ class ShoesModel {
       minSize: json['minsize'],
       maxSize: json['maxsize'],
       color: json['color'],
-    dateadd: json['dateadd']
-  );
+      dateadd: json['dateadd'],
+      sale: json['sale']);
 
-  Map<String, dynamic> toJson() =>
-      {'idshoes': idshoes,
+  Map<String, dynamic> toJson() => {
+        'idshoes': idshoes,
         'nameshoes': nameshoes,
         'image': image,
-        'imagenumber':imagenumber,
-        'price':price,
-        'amount':amount,
-        'rating':rating,
-        'brand':brand,
-        'minsize':minSize,
-        'maxsize':maxSize,
-        'color':color,
-        'dateadd':dateadd
+        'imagenumber': imagenumber,
+        'price': price,
+        'amount': amount,
+        'rating': rating,
+        'brand': brand,
+        'minsize': minSize,
+        'maxsize': maxSize,
+        'color': color,
+        'dateadd': dateadd,
+        'sale': sale
       };
 }

@@ -26,6 +26,8 @@ class _CartPageState extends State<CartPage> {
     // TODO: implement initState
     super.initState();
     cartModel.getAllMapsInArray(uidtemp.uidtemp.toString());
+    listCheck.createList(cartModel.list_cart.length);
+    listCheck.checkTrue();
   }
 
   @override
@@ -33,7 +35,7 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text("Giỏ hàng"),
+          title: Text("Giỏ Hàng"),
         ),
         body: Padding(
           padding: const EdgeInsets.all(3.0),

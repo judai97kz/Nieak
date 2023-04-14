@@ -22,7 +22,10 @@ class _ManagementBillPageState extends State<ManagementBillPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() => billModel.list_bill_admin.length == 0
+      appBar: AppBar(
+        title: Text("Quản lý hóa đơn"),
+      ),
+      body: Obx(() => billModel.list_bill_admin==[]
           ? CircularProgressIndicator()
           : ListView.builder(
               itemCount: billModel.list_bill_admin.length,

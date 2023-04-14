@@ -1,16 +1,8 @@
 import 'dart:io';
-import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nieak/onlines/statepages/createinfo_state.dart';
-import 'package:nieak/onlines/view_pages/home_page.dart';
-import 'package:nieak/onlines/view_pages/management_page.dart';
-
-import '../models/user_model.dart';
 import '../modelviews/user_state.dart';
 
 class CreateInfoPage extends StatefulWidget {
@@ -36,6 +28,7 @@ class _CreateInfoPageState extends State<CreateInfoPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(roleuser.userinfo.value!.user!.phoneNumber);
   }
 
   Future selectFile() async {

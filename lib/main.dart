@@ -1,15 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nieak/onlines/statepages/startup_state.dart';
-import 'onlines/modelviews/login_modelview.dart';
 import 'onlines/view_pages/login_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: Scaffold(
       body: SafeArea(child: StartUp()),
     ),

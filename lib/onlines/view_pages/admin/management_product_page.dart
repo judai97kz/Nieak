@@ -1,3 +1,4 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nieak/onlines/mini_widget/management_product_widget.dart';
@@ -13,6 +14,7 @@ class ManagementProductPage extends StatefulWidget {
 
 class _ManagementProductPageState extends State<ManagementProductPage> {
   final homeModel = Get.put(HomeModelView());
+  final findtext =TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -22,6 +24,27 @@ class _ManagementProductPageState extends State<ManagementProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: AnimSearchBar(
+              width: MediaQuery.of(context).orientation ==
+                  Orientation.portrait
+                  ? 300
+                  : 600,
+              textController: findtext,
+              onSuffixTap: () {},
+              autoFocus: true,
+              // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+              onSubmitted: (key) {
+                homeModel.GetProductAdmin(findtext.text);
+              },
+            ),
+          ),
+        ],
+        title: Text("Quản lý sản phẩm"),
+      ),
       body: Obx(() => homeModel.list_product.length == 0
           ? Center(
               child: CircularProgressIndicator(),
@@ -29,7 +52,7 @@ class _ManagementProductPageState extends State<ManagementProductPage> {
           : ListView.builder(
               itemCount: homeModel.list_product.length,
               itemBuilder: (context, index) {
-                return ManagementProductWidget(homeModel.list_product[index]);
+                return ManagementProductWidget(homeModel.list_product[index],context);
               },
             )),
       floatingActionButton: FloatingActionButton(

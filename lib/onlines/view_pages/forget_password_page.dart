@@ -36,8 +36,25 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Quên Mật Khẩu"),),
       body: Column(
-        children: [TextField(controller: _emailController,),ElevatedButton(onPressed: (){_resetPassword();}, child: Text("Lấy lại mật khẩu"))],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: "Email"
+              ),
+              controller: _emailController,
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                _resetPassword();
+              },
+              child: Text("Lấy lại mật khẩu"))
+        ],
       ),
     );
   }

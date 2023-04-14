@@ -44,8 +44,9 @@ Widget BillWidget(BuildContext context, Map<String, dynamic> product) {
               child: Container(
                 child: Column(
                   children: [
-                    Text(
-                        "- ${product['content'][i]['nameproduct']} size ${product['content'][i]['size']} x ${product['content'][i]['amount']} (đơn giá: ${myFormat.format(product['content'][i]['price'])}đ/đôi)")
+                    product['content'][i]['sale']==0?Text(
+                        "- ${product['content'][i]['nameproduct']} size ${product['content'][i]['size']} x ${product['content'][i]['amount']} (Đơn giá: ${myFormat.format(product['content'][i]['price'])}đ/đôi)"):Text(
+                        "- ${product['content'][i]['nameproduct']} size ${product['content'][i]['size']} x ${product['content'][i]['amount']} (Giá khuyến mãi: ${myFormat.format(product['content'][i]['price'] * (100 - product['content'][i]['sale']) / 100)}đ/đôi)")
                   ],
                 ),
               ),
@@ -53,6 +54,17 @@ Widget BillWidget(BuildContext context, Map<String, dynamic> product) {
           SizedBox(
             height: 20,
           ),
+         Center(
+            child: Container(
+              width: MediaQuery.of(context).orientation==Orientation.portrait?MediaQuery.of(context).size.width/2:MediaQuery.of(context).size.height/2,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey)
+              ),),
+          ),
+          Align(alignment: Alignment.centerRight, child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Tổng giá trị: ${myFormat.format(product['allprice'])}đ"),
+          )),
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Text(

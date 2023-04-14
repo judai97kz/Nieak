@@ -323,7 +323,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    loginaction.signInWithGoogle(context);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Container(

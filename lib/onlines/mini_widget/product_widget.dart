@@ -4,36 +4,115 @@ import 'package:intl/intl.dart';
 
 Widget MiniProduct(BuildContext context, Map<String, dynamic> shoes) {
   NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
-  return Padding(
-    padding: const EdgeInsets.all(4.0),
-    child: Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.white60),
-        borderRadius: BorderRadius.circular(10)
-      ),
-      child: Column(
-        children: [
-
-          Container(
-              height: 150, width: 150, child: Image.network(shoes["image"][0])),
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Text(shoes["nameshoes"]),
-          ),
-          SizedBox(height: 20,),
-          Stack(
+  return Stack(
+    alignment: Alignment.center,
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.white),
+              borderRadius: BorderRadius.circular(10)),
+          child: Column(
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Text("${myFormat.format(shoes["price"])}đ",style: TextStyle(color: Colors.red),),
-                  ))
+              Container(
+                  height: 150,
+                  width: 150,
+                  child: Image.network(shoes["image"][0])),
+              Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Text(shoes["nameshoes"]),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              shoes['sale'] == 0
+                  ? Stack(
+                      children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text(
+                                "${myFormat.format(shoes["price"])}đ",
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ))
+                      ],
+                    )
+                  : Stack(
+                      children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                "Giá gốc: ${myFormat.format(shoes["price"])}đ",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    decoration: TextDecoration.lineThrough),
+                              ),
+                            ))
+                      ],
+                    ),
+              shoes['sale'] == 0
+                  ? SizedBox(
+                      height: 0,
+                    )
+                  : Stack(
+                      children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(.0),
+                              child: Text(
+                                "Giá khuyến mãi: \n ${myFormat.format((shoes["price"] * (100 - shoes['sale'])) / 100)}đ",
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ))
+                      ],
+                    ),
+              shoes['sale'] == 0
+                  ? shoes['amount'] == 0
+                      ? Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(child: Text("Hết hàng")))
+                      : Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(child: Text("Còn hàng")))
+                  : SizedBox(
+                      height: 0,
+                    )
             ],
           ),
-        ],
+        ),
       ),
-    ),
+      shoes['sale'] == 0
+          ? SizedBox(
+              height: 0,
+            )
+          : Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 20),
+                child: Container(
+                  color: Colors.red,
+                  width: 45,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                    child: Container(
+                      child: Text(
+                        "Sale ${shoes['sale']}%",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      ),
+                    ),
+                  ),
+                ),
+              ))
+    ],
   );
 }

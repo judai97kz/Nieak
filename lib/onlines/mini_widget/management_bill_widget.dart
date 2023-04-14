@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nieak/onlines/modelviews/bill_modelview.dart';
+import 'package:nieak/onlines/modelviews/home_modelview.dart';
 
 Widget ManagementBillWidget(
     BuildContext context, Map<String, dynamic> product) {
@@ -27,25 +27,46 @@ Widget ManagementBillWidget(
           Container(
             decoration: BoxDecoration(border: Border.all(color: Colors.black)),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: SizedBox(
               height: 20,
               child: Text("Sản phẩm đã mua:"),
             ),
           ),
-          for (int i = 0; i < contentLength; i++)
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Container(
-                child: Column(
-                  children: [
-                    Text(
-                        "- ${product['content'][i]['nameproduct']} size ${product['content'][i]['size']} x ${product['content'][i]['amount']} (đơn giá: ${myFormat.format(product['content'][i]['price'])}đ/đôi)")
-                  ],
-                ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              child: Column(
+                children: [
+                  for (int i = 0; i < contentLength; i++)
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: product['content'][i]['sale'] == 0
+                          ? Text(
+                              "- ${product['content'][i]['nameproduct']} size ${product['content'][i]['size']} x ${product['content'][i]['amount']} (Đơn giá: ${myFormat.format(product['content'][i]['price'])}đ/đôi)")
+                          : Text(
+                              "- ${product['content'][i]['nameproduct']} size ${product['content'][i]['size']} x ${product['content'][i]['amount']} (Giá khuyến mãi: ${myFormat.format(product['content'][i]['price'] * (100 - product['content'][i]['sale']) / 100)}đ/đôi)"),
+                    )
+                ],
               ),
             ),
+          ),
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).orientation == Orientation.portrait
+                  ? MediaQuery.of(context).size.width / 2
+                  : MediaQuery.of(context).size.height / 2,
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+            ),
+          ),
+          Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                    "Tổng giá trị: ${myFormat.format(product['allprice'])}đ"),
+              )),
           SizedBox(
             height: 20,
           ),
@@ -63,7 +84,12 @@ Widget ManagementBillWidget(
                     ? null
                     : () {
                         final bill = Get.put(BillModelView());
+                        final updateAmount = Get.put(HomeModelView());
                         bill.updateAcceptState(product['idbill']);
+                        for (int i = 0; i < contentLength; i++){
+                          updateAmount.updateAmount(product['content'][i]['idshoes'],product['content'][i]['amount']);
+                        }
+
                       },
                 child: Text("Xác thực đơn hàng"),
               ),

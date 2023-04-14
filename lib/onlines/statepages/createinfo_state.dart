@@ -79,18 +79,19 @@ class CreateInfoState extends GetxController {
 
     String imgUrl = await uploadFile(pickedFile);
     UserModel newuser = UserModel(
+      id:userstate.userinfo.value!.user!.uid,
         name: name,
         phone: phone,
         address: address,
         birthday: date,
         cart: [],
         imageAvatar: imgUrl,
-        wallet: 1233435435,
         disable: false,
         role: 0);
+    print(userstate.uidtemp);
     firestore
         .collection('user')
-        .doc(userstate.uidtemp.value)
+        .doc(userstate.userinfo.value!.user!.uid)
         .set(newuser.toJson());
     // await _addMapToArray(userstate.uidtemp.value, 'cart');
     try {

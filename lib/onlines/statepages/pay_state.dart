@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:get/get.dart';
 import 'package:nieak/onlines/statepages/cart_state.dart';
 import 'package:nieak/onlines/statepages/management_state.dart';
@@ -13,24 +12,33 @@ class PayState extends GetxController {
     final listtemp = Get.put(CartState());
     int sum = 0;
     for (int i = 0; i < listtemp.list_temp.length; i++) {
-      sum = sum + int.parse(listtemp.list_temp[i]["price"].toString()) *
-          int.parse(listtemp.list_temp[i]["amount"].toString());
+      if (listtemp.list_temp[i]["price"] == 0) {
+        sum = sum +
+            int.parse(listtemp.list_temp[i]["price"].toString()) *
+                int.parse(listtemp.list_temp[i]["amount"].toString());
+      } else {
+        var tempprice = listtemp.list_temp[i]["price"] *
+            (100 - listtemp.list_temp[i]["sale"]) /
+            100;
+        sum = sum +
+            int.parse(tempprice.toInt().toString()) *
+                int.parse(listtemp.list_temp[i]["amount"].toString());
+      }
     }
     allsum.value = sum;
+    print(sum);
     sum = 0;
   }
 
-  backFuntion(BuildContext context){
+  backFuntion(BuildContext context) {
     final payTemp = Get.put(CartState());
     final managementState = Get.put(ManagementState());
     checkPay.value = false;
     print(payTemp.list_check.length);
     payTemp.createList(payTemp.list_check.length);
     payTemp.checkTrue();
-    managementState.currentindex.value=0;
+    managementState.currentindex.value = 0;
     Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (builder) => ManagementPage()));
+        context, MaterialPageRoute(builder: (builder) => ManagementPage()));
   }
 }

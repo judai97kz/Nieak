@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/view_pages/create_info_page.dart';
 import 'package:nieak/onlines/view_pages/disable_account_page.dart';
@@ -101,7 +102,7 @@ class LoginModelView {
               builder: (BuildContext context) => DisableAccountPage(),
             ),
           );
-        }else{
+        } else {
           roleuser.uidtemp.value = uid;
           await roleuser.InfoUser(uid);
           // ignore: use_build_context_synchronously
@@ -112,7 +113,6 @@ class LoginModelView {
             ),
           );
         }
-
       } else {
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
@@ -134,8 +134,8 @@ class LoginModelView {
         await roleuser.InfoUser(uid);
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('uid', uid);
-        Navigator.pop(context);
         if (docSnapshot['disable'] == true) {
+          print("vo hieu");
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -149,11 +149,59 @@ class LoginModelView {
               builder: (BuildContext context) => ManagementPage(),
             ),
           );
+          print("Dang nhap thanh cong");
         }
       } else {
+        print("vThem thong tin");
+        print(roleuser.user);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (builder) => CreateInfoPage()));
       }
     } catch (e) {}
+  }
+
+  signInWithGoogle(BuildContext context) async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    if (googleUser == null) {
+      throw FirebaseAuthException(
+          code: 'ERROR_ABORTED_BY_USER',
+          message: 'Đăng nhập bị hủy bởi người dùng');
+    }
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      final user = await FirebaseAuth.instance.currentUser;
+      roleuser.userinfo.value = userCredential;
+      try {
+        if (user!.emailVerified != false) {
+          CheckValueOfUser(userCredential.user!.uid, context);
+        } else {
+          User? tempuser = userCredential.user;
+          await tempuser?.sendEmailVerification();
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => VertifyEmailPage()));
+        }
+      } catch (e) {
+        print("lo");
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Email không tồn tại!')));
+        Navigator.pop(context);
+      } else if (e.code == 'wrong-password') {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Sai mật khẩu')));
+      }
+      return;
+    }
   }
 }

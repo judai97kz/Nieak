@@ -20,14 +20,14 @@ class VertifyModelView extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('uid', uid);
       await roleuser.InfoUser(uid);
-      DocumentSnapshot<Map<String, dynamic>> check =  await FirebaseFirestore.instance.collection('user').doc(uid).get();
-    if(docSnapshot['disable']==true){
-      print("Vo");
-    }else{
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-              builder: (context) => ManagementPage()));
-    }
+      DocumentSnapshot<Map<String, dynamic>> check =
+          await FirebaseFirestore.instance.collection('user').doc(uid).get();
+      if (docSnapshot['disable'] == true) {
+        print("Vo");
+      } else {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => ManagementPage()));
+      }
     } else {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => CreateInfoPage()));

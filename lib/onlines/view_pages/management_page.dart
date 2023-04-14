@@ -32,6 +32,8 @@ class _ManagementPageState extends State<ManagementPage> {
       UserPage(),
       roleuser.user.value!.role == 1 ? AdminPage() : null
     ];
+    cartState.getAllMapsInArray(roleuser.uidtemp.toString());
+
   }
 
   @override
@@ -44,111 +46,123 @@ class _ManagementPageState extends State<ManagementPage> {
           : Scaffold(
               body: _screen[managementState.currentindex.value],
               bottomNavigationBar: roleuser.user.value!.role == 1
-                  ? BottomNavigationBar(
-                      type: BottomNavigationBarType.fixed,
-                      currentIndex: managementState.currentindex.value,
-                      onTap: (index) => setState(() {
-                        print(index);
-                        managementState.currentindex.value = index;
-                      }),
-                      items: [
-                        BottomNavigationBarItem(
-                            icon: Icon(Icons.home),
-                            label: 'Home',
-                            backgroundColor: Colors.red),
-                        BottomNavigationBarItem(
-                            icon: Stack(children: [
-                              const Align(
-                                alignment: Alignment.center,
-                                child: Icon(Icons.shopping_cart),
-                              ),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Obx(() => Padding(
-                                        padding: MediaQuery.of(context)
-                                                    .orientation ==
-                                                Orientation.portrait
-                                            ? roleuser.user.value!.role == 1
-                                                ? EdgeInsets.fromLTRB(
-                                                    0, 0, 25, 15)
-                                                : EdgeInsets.fromLTRB(
-                                                    0, 0, 45, 20)
-                                            : roleuser.user.value!.role == 1
-                                                ? EdgeInsets.fromLTRB(
-                                                    0, 0, 60, 0)
-                                                : EdgeInsets.fromLTRB(
-                                                    0, 0, 95, 0),
-                                        child: CircleAvatar(
-                                          radius: 7,
-                                          backgroundColor: Colors.red,
-                                          child: Text(
-                                            cartState.list_cart.length.toString(),
-                                            style:
-                                                const TextStyle(fontSize: 10),
+                  ? Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black)
+                ),
+                    child: BottomNavigationBar(
+                        type: BottomNavigationBarType.fixed,
+                        currentIndex: managementState.currentindex.value,
+                        onTap: (index) => setState(() {
+                          print(index);
+                          managementState.currentindex.value = index;
+                        }),
+                        items: [
+                          BottomNavigationBarItem(
+                              icon: Icon(Icons.home),
+                              label: 'Home',
+                              backgroundColor: Colors.red),
+                          BottomNavigationBarItem(
+                              icon: Stack(children: [
+                                const Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(Icons.shopping_cart),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Obx(() => Padding(
+                                          padding: MediaQuery.of(context)
+                                                      .orientation ==
+                                                  Orientation.portrait
+                                              ? roleuser.user.value!.role == 1
+                                                  ? EdgeInsets.fromLTRB(
+                                                      0, 0, 25, 15)
+                                                  : EdgeInsets.fromLTRB(
+                                                      0, 0, 45, 20)
+                                              : roleuser.user.value!.role == 1
+                                                  ? EdgeInsets.fromLTRB(
+                                                      0, 0, 60, 0)
+                                                  : EdgeInsets.fromLTRB(
+                                                      0, 0, 95, 0),
+                                          child: CircleAvatar(
+                                            radius: 7,
+                                            backgroundColor: Colors.red,
+                                            child: Text(
+                                              cartState.list_cart.length
+                                                  .toString(),
+                                              style:
+                                                  const TextStyle(fontSize: 10),
+                                            ),
                                           ),
-                                        ),
-                                      ))),
-                            ]),
-                            label: 'Cart',
-                            backgroundColor: Colors.red),
-                        BottomNavigationBarItem(
-                            icon: Icon(Icons.person), label: 'User'),
-                        BottomNavigationBarItem(
-                            icon: Icon(Icons.admin_panel_settings),
-                            label: 'Admin')
-                      ],
-                    )
-                  : BottomNavigationBar(
-                      type: BottomNavigationBarType.fixed,
-                      currentIndex: managementState.currentindex.value,
-                      onTap: (index) => setState(() {
-                        print(index);
-                        managementState.currentindex.value = index;
-                      }),
-                      items: [
-                        BottomNavigationBarItem(
-                            icon: Icon(Icons.home),
-                            label: 'Home',
-                            backgroundColor: Colors.red),
-                        BottomNavigationBarItem(
-                            icon: Stack(children: [
-                              const Align(
-                                alignment: Alignment.center,
-                                child: Icon(Icons.shopping_cart),
-                              ),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Obx(() => Padding(
-                                        padding: MediaQuery.of(context)
-                                                    .orientation ==
-                                                Orientation.portrait
-                                            ? roleuser.user.value!.role == 1
-                                                ? EdgeInsets.fromLTRB(
-                                                    0, 0, 25, 20)
-                                                : EdgeInsets.fromLTRB(
-                                                    0, 0, 45, 20)
-                                            : roleuser.user.value!.role == 1
-                                                ? EdgeInsets.fromLTRB(
-                                                    0, 0, 65, 0)
-                                                : EdgeInsets.fromLTRB(
-                                                    0, 0, 95, 0),
-                                        child: CircleAvatar(
-                                          radius: 7,
-                                          backgroundColor: Colors.red,
-                                          child: Text(
-                                            cartState.list_cart.length.toString(),
-                                            style:
-                                                const TextStyle(fontSize: 10),
+                                        ))),
+                              ]),
+                              label: 'Cart',
+                              backgroundColor: Colors.red),
+                          BottomNavigationBarItem(
+                              icon: Icon(Icons.person), label: 'User'),
+                          BottomNavigationBarItem(
+                              icon: Icon(Icons.admin_panel_settings),
+                              label: 'Admin')
+                        ],
+                      ),
+                  )
+                  : Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black)
+                ),
+                    child: BottomNavigationBar(
+                        type: BottomNavigationBarType.fixed,
+                        currentIndex: managementState.currentindex.value,
+                        onTap: (index) => setState(() {
+                          print(index);
+                          managementState.currentindex.value = index;
+                        }),
+                        items: [
+                          BottomNavigationBarItem(
+                              icon: Icon(Icons.home),
+                              label: 'Home',
+                              backgroundColor: Colors.red),
+                          BottomNavigationBarItem(
+                              icon: Stack(children: [
+                                const Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(Icons.shopping_cart),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Obx(() => Padding(
+                                          padding: MediaQuery.of(context)
+                                                      .orientation ==
+                                                  Orientation.portrait
+                                              ? roleuser.user.value!.role == 1
+                                                  ? EdgeInsets.fromLTRB(
+                                                      0, 0, 25, 20)
+                                                  : EdgeInsets.fromLTRB(
+                                                      0, 0, 45, 20)
+                                              : roleuser.user.value!.role == 1
+                                                  ? EdgeInsets.fromLTRB(
+                                                      0, 0, 65, 0)
+                                                  : EdgeInsets.fromLTRB(
+                                                      0, 0, 95, 0),
+                                          child: CircleAvatar(
+                                            radius: 7,
+                                            backgroundColor: Colors.red,
+                                            child: Text(
+                                              cartState.list_cart.length
+                                                  .toString(),
+                                              style:
+                                                  const TextStyle(fontSize: 10),
+                                            ),
                                           ),
-                                        ),
-                                      ))),
-                            ]),
-                            label: 'Cart',
-                            backgroundColor: Colors.red),
-                        BottomNavigationBarItem(
-                            icon: Icon(Icons.person), label: 'User'),
-                      ],
-                    )),
+                                        ))),
+                              ]),
+                              label: 'Cart',
+                              backgroundColor: Colors.red),
+                          BottomNavigationBarItem(
+                              icon: Icon(Icons.person), label: 'User'),
+                        ],
+                      ),
+                  )),
     );
   }
 }

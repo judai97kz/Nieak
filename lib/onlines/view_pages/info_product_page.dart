@@ -343,20 +343,22 @@ class _InfoProductPageState extends State<InfoProductPage> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Container(
-                            height: 400,
-                            child: Obx(
-                              () => commentModel.list_cmt.length == 0
-                                  ? const Center(child: CircularProgressIndicator())
-                                  : ListView.builder(
-                                      itemCount: commentModel.list_cmt.length,
-                                      itemBuilder: (context, index) {
-                                        return CommentWidget(
-                                          comment: commentModel.list_cmt[index],
-                                        );
-                                      }),
+                        Obx(
+                            ()=> Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Container(
+                              height: commentModel.list_cmt.length == 0?50:400,
+                              child: Obx(
+                                () => commentModel.list_cmt.length == 0
+                                    ? const Center(child: Text("Chưa có bình luận cho sản phẩm"))
+                                    : ListView.builder(
+                                        itemCount: commentModel.list_cmt.length,
+                                        itemBuilder: (context, index) {
+                                          return CommentWidget(
+                                            comment: commentModel.list_cmt[index],
+                                          );
+                                        }),
+                              ),
                             ),
                           ),
                         ),
@@ -367,41 +369,41 @@ class _InfoProductPageState extends State<InfoProductPage> {
                                 border: Border.all(color: Colors.black12)),
                           ),
                         ),
-                        Text('Sản Phẩm Cùng Hãng'),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 280,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: homeModel.list_product.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.black)),
-                                      width: 150,
-                                      child: GestureDetector(
-                                        onTap: () async {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (builder) =>
-                                                      InfoProductPage(
-                                                          shoe: homeModel
-                                                                  .list_product[
-                                                              index])));
-                                        },
-                                        child: MiniProduct(context,
-                                            homeModel.list_product[index]),
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          ),
-                        ),
+                        // Text('Sản Phẩm Cùng Hãng'),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Container(
+                        //     height: 280,
+                        //     child: ListView.builder(
+                        //         scrollDirection: Axis.horizontal,
+                        //         itemCount: homeModel.list_product.length,
+                        //         itemBuilder: (context, index) {
+                        //           return Padding(
+                        //             padding: const EdgeInsets.all(3.0),
+                        //             child: Container(
+                        //               decoration: BoxDecoration(
+                        //                   border:
+                        //                       Border.all(color: Colors.black)),
+                        //               width: 150,
+                        //               child: GestureDetector(
+                        //                 onTap: () async {
+                        //                   Navigator.push(
+                        //                       context,
+                        //                       MaterialPageRoute(
+                        //                           builder: (builder) =>
+                        //                               InfoProductPage(
+                        //                                   shoe: homeModel
+                        //                                           .list_product[
+                        //                                       index])));
+                        //                 },
+                        //                 child: MiniProduct(context,
+                        //                     homeModel.list_product[index]),
+                        //               ),
+                        //             ),
+                        //           );
+                        //         }),
+                        //   ),
+                        // ),
                         const SizedBox(
                           height: 60,
                         )

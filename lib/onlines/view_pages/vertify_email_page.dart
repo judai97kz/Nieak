@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
-import 'package:nieak/onlines/view_pages/home_page.dart';
-import 'package:nieak/onlines/view_pages/management_page.dart';
 
 class VertifyEmailPage extends StatefulWidget {
   const VertifyEmailPage({Key? key}) : super(key: key);
@@ -16,7 +14,6 @@ class VertifyEmailPage extends StatefulWidget {
 
 class _VertifyEmailPageState extends State<VertifyEmailPage> {
   final userState = Get.put(UserState());
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
     // TODO: implement initState

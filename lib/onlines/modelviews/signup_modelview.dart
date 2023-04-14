@@ -48,27 +48,6 @@ class SignUpModelView extends GetxController {
     }
   }
 
-  SignUpAction(String username, String password, String rppassword, String name,
-      String phone, String address, BuildContext context) async {
-    DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
-        .instance
-        .collection('admin')
-        .doc(username)
-        .get();
-    if (snapshot.exists) {
-      AlertDialog alert = AlertDialog(
-        title: Text("Thông Báo"),
-        content: Text("Tên người dùng đã tồn tại"),
-        actions: [
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'))
-        ],
-      );
-    } else {
-      print("thêm thanh công");
-    }
-  }
+
+
 }

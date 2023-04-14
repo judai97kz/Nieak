@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/modelviews/vertify_modelviews.dart';
 
-import 'home_page.dart';
-
 class VerificationPage extends StatefulWidget {
   final String verificationId;
 

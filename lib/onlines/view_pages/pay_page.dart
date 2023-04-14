@@ -22,31 +22,33 @@ class _PayPageState extends State<PayPage> {
   final payState = Get.put(PayState());
   final userInfo = Get.put(UserState());
   NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
+  final listProduct = [];
 
   String countryValue = "";
   String stateValue = "";
   String cityValue = "";
   String address = "";
 
-  void makeABill() {
+  Future<void> makeABill() async {
     var date = DateTime.now().toString();
-
+    var list = [];
+    for (int i = 0; i < cartTemp.list_temp.length; i++) {
+      // firestore.collection('bill').doc(temp).update({
+      //   'content': FieldValue.arrayUnion([cartTemp.list_temp[i]]),
+      // });
+      list.add(cartTemp.list_temp[i]);
+    }
     BillModel bill = BillModel(
         idbill: '${userInfo.uidtemp.value}${date}',
         iduser: userInfo.uidtemp.value,
         datecreate: date,
-        content: [],
+        content: list,
         allprice: payState.allsum.value,
         acceptstate: false,
         receivestate: false);
     var temp = '${userInfo.uidtemp.value}${date}';
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
-    firestore.collection('bill').doc(temp).set(bill.toJson());
-    for (int i = 0; i < cartTemp.list_temp.length; i++) {
-      firestore.collection('bill').doc(temp).update({
-        'content': FieldValue.arrayUnion([cartTemp.list_temp[i]]),
-      });
-    }
+    await firestore.collection('bill').doc(temp).set(bill.toJson());
   }
 
   @override
@@ -54,6 +56,23 @@ class _PayPageState extends State<PayPage> {
     // TODO: implement initState
     super.initState();
     payState.sumprice();
+    print(payState.allsum);
+    for (int i = 0; i < cartTemp.list_temp.length; i++) {
+      var tempprice = 0;
+      if(cartTemp.list_temp[i]['sale']==0){
+        tempprice = cartTemp.list_temp[i]['price'];
+      }else{
+        tempprice = (cartTemp.list_temp[i]['price']*(100-cartTemp.list_temp[i]['sale'])/100).toInt();
+      }
+      Map<String, dynamic> item = {
+        "name": cartTemp.list_temp[i]['sale']==0?"${cartTemp.list_temp[i]['nameproduct']}":"${cartTemp.list_temp[i]['nameproduct']}(Khuyến Mãi)",
+        "quantity": cartTemp.list_temp[i]['amount'],
+        "price": tempprice,
+        "currency": "USD"
+      };
+      listProduct.add(item);
+    }
+    print(listProduct);
   }
 
   @override
@@ -61,20 +80,27 @@ class _PayPageState extends State<PayPage> {
     return Obx(() => payState.checkPay.value == true
         ? PaySuccessPage()
         : Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              title: Text("Thông Tin Dơn Hàng"),
+            ),
             body: Stack(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Chi tiết đơn hàng"),
                     Container(
-                      child: Obx(() => ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: cartTemp.list_temp.length,
-                            itemBuilder: (context, index) => PayWidget(
-                                context, cartTemp.list_temp[index], index),
-                          )),
+                        height: 30,
+                        child: Center(child: Text("Chi tiết đơn hàng"))),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Container(
+                        child: Obx(() => ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: cartTemp.list_temp.length,
+                              itemBuilder: (context, index) => PayWidget(
+                                  context, cartTemp.list_temp[index], index),
+                            )),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -86,10 +112,20 @@ class _PayPageState extends State<PayPage> {
                         ),
                       )),
                     ),
-                    Text("Thông tin người nhận"),
-                    Text("Khách hàng: ${userInfo.user.value!.name}"),
-                    Text("Điện thoại: ${userInfo.user.value!.phone}"),
-                    Text("Địa chỉ: ${userInfo.user.value!.address}")
+                    Container(
+                        child: Center(child: Text("Thông tin người nhận"))),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Khách hàng: ${userInfo.user.value!.name}"),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Điện thoại: ${userInfo.user.value!.phone}"),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Địa chỉ: ${userInfo.user.value!.address}"),
+                    )
                   ],
                 ),
                 Align(
@@ -106,13 +142,13 @@ class _PayPageState extends State<PayPage> {
                                   "EFkfXhlOplaT3t3pncl4MNGPR7Atq-BoNAf-mOyvs1RSWWBnZ6z0rmw96MlrortcRVM1vxe0cyOZaWk3",
                               returnURL: "https://samplesite.com/return",
                               cancelURL: "https://samplesite.com/cancel",
-                              transactions: const [
+                              transactions: [
                                 {
                                   "amount": {
-                                    "total": '100',
+                                    "total": payState.allsum.value,
                                     "currency": "USD",
                                     "details": {
-                                      "subtotal": '0',
+                                      "subtotal": payState.allsum.value,
                                       "shipping": '0',
                                       "shipping_discount": 0
                                     }
@@ -124,22 +160,14 @@ class _PayPageState extends State<PayPage> {
                                   //       "INSTANT_FUNDING_SOURCE"
                                   // },
                                   "item_list": {
-                                    "items": [
-                                      {
-                                        "name": "A demo product",
-                                        "quantity": 1,
-                                        "price": '0',
-                                        "currency": "USD"
-                                      }
-                                    ],
-
+                                    "items": listProduct,
                                     // shipping address is not required though
                                     "shipping_address": {
-                                      "recipient_name": "Jane Foster",
-                                      "line1": "Travis County",
+                                      "recipient_name": userInfo.uidtemp.value,
+                                      "line1": userInfo.user.value!.address,
                                       "line2": "",
                                       "city": "Austin",
-                                      "country_code": "US",
+                                      "country_code": "VN",
                                       "postal_code": "73301",
                                       "phone": "+00000000",
                                       "state": "Texas"
@@ -152,7 +180,7 @@ class _PayPageState extends State<PayPage> {
                               onSuccess: (Map params) async {
                                 print("onSuccess: $params");
                                 makeABill();
-                                payState.checkPay.value = true;
+                                payState.checkPay.value = await true;
                               },
                               onError: (error) {
                                 print("onError: $error");
@@ -165,8 +193,10 @@ class _PayPageState extends State<PayPage> {
                       );
                     },
                     child: Container(
+                      height: 40,
                       width: double.infinity,
-                      child: Text("Xác nhận thanh toán"),
+                      decoration: BoxDecoration(color: Colors.red),
+                      child: Center(child: Text("Xác nhận thanh toán")),
                     ),
                   ),
                 )
