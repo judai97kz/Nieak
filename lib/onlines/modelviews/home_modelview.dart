@@ -114,8 +114,12 @@ class HomeModelView extends GetxController {
   }
 
   getChatRoom() async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await FirebaseFirestore.instance.collection('user').where('role',isEqualTo: 0).get();
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+        .instance
+        .collection('user')
+        .where('role', isEqualTo: 0)
+        .where('disable', isEqualTo: false)
+        .get();
     list_chat_room.value = querySnapshot.docs.map((doc) => doc.data()).toList();
   }
 }

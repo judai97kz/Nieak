@@ -141,6 +141,7 @@ class _CreateInfoPageState extends State<CreateInfoPage> {
                         padding: const EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 5.0),
                         child: Obx(
                           () => TextField(
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 hintText: "Số điện thoại",
                                 errorText: createinfoState.phonetext == ""
@@ -169,8 +170,10 @@ class _CreateInfoPageState extends State<CreateInfoPage> {
                       createinfoState.CheckNull(
                           _nametextcontroller.text,
                           createinfoState.dateTime.toString(),
-                          mail==null?_mailtextcontroller.text:mail!,
-                          roleuser.userinfo.value!.user!.phoneNumber==null?_phonetextcontroller.text:phone!,
+                          mail == null ? _mailtextcontroller.text : mail!,
+                          roleuser.userinfo.value!.user!.phoneNumber == null
+                              ? _phonetextcontroller.text
+                              : phone!,
                           _addresstextcontroller.text,
                           pickedFile,
                           context);

@@ -71,6 +71,11 @@ class CreateInfoState extends GetxController {
       gmailtext.value = "Không được bỏ trống!";
       return;
     }
+    if (userstate.userinfo.value!.user!.email?.contains("@gmail.com") ==
+        false) {
+      gmailtext.value = "mail không đúng định dạng!";
+      return;
+    }
     gmailtext.value = "";
     print(userstate.userinfo.value!.user!.phoneNumber);
     if (userstate.userinfo.value!.user!.phoneNumber == null && phone == "") {

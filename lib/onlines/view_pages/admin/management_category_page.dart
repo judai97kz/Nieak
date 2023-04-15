@@ -18,60 +18,68 @@ class _ManagementCategoryPageState extends State<ManagementCategoryPage> {
       appBar: AppBar(
         title: Text("Quản Lý Thương Hiệu"),
       ),
-      body: Obx(() => ListView.builder(
-            itemCount: listBrand.list_brand.length,
-            itemBuilder: (context, index) {
-              return listBrand.list_brand[index] == "All"
-                  ? SizedBox(
-                      height: 0,
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            height: 25,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                              borderRadius: BorderRadius.circular(10),
+      body: Obx(() => listBrand.list_brand.length == 0
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: listBrand.list_brand.length,
+              itemBuilder: (context, index) {
+                return listBrand.list_brand[index] == "All"
+                    ? SizedBox(
+                        height: 0,
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              height: 25,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                  child: Text(listBrand.list_brand[index])),
                             ),
-                            child: Center(
-                                child: Text(listBrand.list_brand[index])),
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              onTap: () {
-                                AlertDialog dialog = AlertDialog(
-                                  title: Text("Thông Báo"),
-                                  content: Text("Bạn có muốn thương hiệu này?"),
-                                  actions: [
-                                    ElevatedButton(
-                                        onPressed: () async {
-                                          listBrand.deleteCategory(index);
-                                          Navigator.of(context).pop();
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(content: Text("Đã xóa sản phẩm")));
-                                        },
-                                        child: Text("Xác nhận")),
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text("Hủy"))
-                                  ],
-                                );
-                                showDialog(context: context, builder: (context) => dialog);
-
-                              },
-                              child: Icon(Icons.remove_circle),
-                            ),
-                          )
-                        ],
-                      ));
-            },
-          )),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: GestureDetector(
+                                onTap: () {
+                                  AlertDialog dialog = AlertDialog(
+                                    title: Text("Thông Báo"),
+                                    content:
+                                        Text("Bạn có muốn thương hiệu này?"),
+                                    actions: [
+                                      ElevatedButton(
+                                          onPressed: () async {
+                                            listBrand.deleteCategory(index);
+                                            Navigator.of(context).pop();
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        "Đã xóa sản phẩm")));
+                                          },
+                                          child: Text("Xác nhận")),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text("Hủy"))
+                                    ],
+                                  );
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => dialog);
+                                },
+                                child: Icon(Icons.remove_circle),
+                              ),
+                            )
+                          ],
+                        ));
+              },
+            )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           AlertDialog dialog = AlertDialog(
@@ -89,9 +97,8 @@ class _ManagementCategoryPageState extends State<ManagementCategoryPage> {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("Thêm thương hiệu thành công!")));
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Không được để trống!")));
-
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Không được để trống!")));
                     }
                   },
                   child: Text("Xác nhận")),

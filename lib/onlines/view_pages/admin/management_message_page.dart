@@ -27,7 +27,7 @@ class _ManagementMessagepageState extends State<ManagementMessagepage> {
         title: Text("Tin Nhắn Người Dùng"),
       ),
       body: Obx(() => chatRoomModel.list_chat_room.length == 0
-          ? CircularProgressIndicator()
+          ? Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: chatRoomModel.list_chat_room.length,
               itemBuilder: (context, index) {
@@ -43,29 +43,28 @@ class _ManagementMessagepageState extends State<ManagementMessagepage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black)
-                      ),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black)),
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Row(
-                      children: [
-                          Container(
-                            child: Center(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  chatRoomModel.list_chat_room[index]
-                                      ['imageAvatar'],
-                                  height: 60,
-                                  width: 60,
+                            children: [
+                              Container(
+                                child: Center(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: Image.network(
+                                      chatRoomModel.list_chat_room[index]
+                                          ['imageAvatar'],
+                                      height: 60,
+                                      width: 60,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              Text(chatRoomModel.list_chat_room[index]['name'])
+                            ],
                           ),
-                          Text(chatRoomModel.list_chat_room[index]['name'])
-                      ],
-                    ),
                         )),
                   ),
                 );

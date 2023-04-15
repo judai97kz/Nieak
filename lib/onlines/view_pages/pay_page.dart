@@ -59,13 +59,18 @@ class _PayPageState extends State<PayPage> {
     print(payState.allsum);
     for (int i = 0; i < cartTemp.list_temp.length; i++) {
       var tempprice = 0;
-      if(cartTemp.list_temp[i]['sale']==0){
+      if (cartTemp.list_temp[i]['sale'] == 0) {
         tempprice = cartTemp.list_temp[i]['price'];
-      }else{
-        tempprice = (cartTemp.list_temp[i]['price']*(100-cartTemp.list_temp[i]['sale'])/100).toInt();
+      } else {
+        tempprice = (cartTemp.list_temp[i]['price'] *
+                (100 - cartTemp.list_temp[i]['sale']) /
+                100)
+            .toInt();
       }
       Map<String, dynamic> item = {
-        "name": cartTemp.list_temp[i]['sale']==0?"${cartTemp.list_temp[i]['nameproduct']}":"${cartTemp.list_temp[i]['nameproduct']}(Khuyến Mãi)",
+        "name": cartTemp.list_temp[i]['sale'] == 0
+            ? "${cartTemp.list_temp[i]['nameproduct']}"
+            : "${cartTemp.list_temp[i]['nameproduct']}(Khuyến Mãi)",
         "quantity": cartTemp.list_temp[i]['amount'],
         "price": tempprice,
         "currency": "USD"
@@ -81,7 +86,7 @@ class _PayPageState extends State<PayPage> {
         ? PaySuccessPage()
         : Scaffold(
             appBar: AppBar(
-              title: Text("Thông Tin Dơn Hàng"),
+              title: Text("Thông Tin Đơn Hàng"),
             ),
             body: Stack(
               children: [

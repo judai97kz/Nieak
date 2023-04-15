@@ -19,18 +19,22 @@ class _ManagementUserPageState extends State<ManagementUserPage> {
     super.initState();
     homeState.GetAllUser();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quản lý người dùng"),
+        title: Text("Quản Lý Người Dùng"),
       ),
-      body: Obx(()=>homeState.list_user.length==0?CircularProgressIndicator():ListView.builder(
-        itemCount: homeState.list_user.length,
-        itemBuilder: (context,index){
-          return ManagementUserWidget(homeState.list_user[index]);
-        },
-      )),
+      body: Obx(() => homeState.list_user.length == 0
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: homeState.list_user.length,
+              itemBuilder: (context, index) {
+                return ManagementUserWidget(
+                    homeState.list_user[index], context);
+              },
+            )),
     );
   }
 }

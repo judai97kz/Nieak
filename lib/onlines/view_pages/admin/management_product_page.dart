@@ -43,7 +43,7 @@ class _ManagementProductPageState extends State<ManagementProductPage> {
             ),
           ),
         ],
-        title: Text("Quản lý sản phẩm"),
+        title: Text("Quản Lý Sản Phẩm"),
       ),
       body: Obx(() => homeModel.list_product.length == 0
           ? Center(

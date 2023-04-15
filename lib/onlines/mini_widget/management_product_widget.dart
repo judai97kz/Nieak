@@ -22,11 +22,7 @@ Widget ManagementProductWidget(
       List<dynamic> cartItems = documentSnapshot['cart'];
       bool updateNeeded = false;
       for (Map<String, dynamic> item in cartItems) {
-        print(item);
-        print(item['idshoes']);
-        print(targetId);
         if (item['idshoes'] == targetId) {
-          print(documentSnapshot);
           // Cập nhật giá trị 'sale' cho Map có thuộc tính 'id' mong muốn
           item['sale'] = newSale;
           updateNeeded = true;
@@ -121,7 +117,7 @@ Widget ManagementProductWidget(
                                       .collection('product')
                                       .doc(product['idshoes'].toString())
                                       .update({'sale': sum});
-                                 updateSale(product['idshoes'], sum);
+                                  updateSale(product['idshoes'], sum);
                                   homeModel.GetAllProduct();
                                 }
                               },

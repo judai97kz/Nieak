@@ -19,18 +19,20 @@ class _ManagementBillPageState extends State<ManagementBillPage> {
     super.initState();
     billModel.getAllBill();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quản lý hóa đơn"),
+        title: Text("Quản Lý Hóa Đơn"),
       ),
-      body: Obx(() => billModel.list_bill_admin==[]
-          ? CircularProgressIndicator()
+      body: Obx(() => billModel.list_bill_admin == []
+          ? Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: billModel.list_bill_admin.length,
               itemBuilder: (context, index) {
-                return ManagementBillWidget(context, billModel.list_bill_admin[index]);
+                return ManagementBillWidget(
+                    context, billModel.list_bill_admin[index]);
               },
             )),
     );
