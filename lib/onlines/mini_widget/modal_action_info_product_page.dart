@@ -13,23 +13,13 @@ class ActionModal {
   final usertemp = Get.put(UserState());
   final cartState =Get.put(CartModelView());
 
-  // Future<void> addMapToArray(String documentId, String fieldName,
-  //     Map<String, dynamic> mapToAdd) async {
-  //   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  //   final DocumentReference documentReference =
-  //       _firestore.collection('user').doc(documentId);
-  //   await documentReference.update({
-  //     fieldName: FieldValue.arrayUnion([mapToAdd]),
-  //   });
-  // }
-
   Future<void> addOrUpdateMap(String documentId, String fieldName,
       Map<String, dynamic> mapToAdd) async {
+    print(documentId);
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
     final DocumentReference documentReference =
-        _firestore.collection('user').doc(documentId);
+        _firestore.collection('user').doc(documentId.trim());
 
-    // Lấy dữ liệu hiện tại của tài liệu
     DocumentSnapshot docSnapshot = await documentReference.get();
     Map<String, dynamic> docData = docSnapshot.data() as Map<String, dynamic>;
 
@@ -156,13 +146,14 @@ class ActionModal {
                             'size': ipState.size.value,
                             'amount': ipState.amount.value,
                           };
+                          print(usertemp.uidtemp.toString());
                           await addOrUpdateMap(
-                              usertemp.uidtemp.toString(), 'cart', mapToAdd);
+                              usertemp.user.value!.id, 'cart', mapToAdd);
                           Navigator.of(context).pop();
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Thêm Sản Phẩm Thành Công!')));
-                          cartState.getAllMapsInArray( usertemp.uidtemp.toString());
+                          cartState.getAllMapsInArray(usertemp.user.value!.id);
                         },
                         child: const Text("Thêm"),
                       ),

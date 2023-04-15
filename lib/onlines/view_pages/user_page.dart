@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nieak/onlines/modelviews/cart_modelview.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
+import 'package:nieak/onlines/statepages/createinfo_state.dart';
 import 'package:nieak/onlines/statepages/management_state.dart';
 import 'package:nieak/onlines/view_pages/bill_page.dart';
 import 'package:nieak/onlines/view_pages/chat_page.dart';
@@ -19,9 +20,8 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   final userState = Get.put(UserState());
   final cartModel = Get.put(CartModelView());
-
+  final changeDay = Get.put(CreateInfoState());
   final _editname = TextEditingController();
-  final _editbirthday = TextEditingController();
   final _editphone = TextEditingController();
   final _editaddress = TextEditingController();
 
@@ -195,6 +195,14 @@ class _UserPageState extends State<UserPage> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
+                                  onTap: () async {
+                                    await changeDay.selectDate(context);
+                                    await FirebaseFirestore.instance
+                                        .collection('user')
+                                        .doc(userState.uidtemp.trim())
+                                        .update({'birthday': changeDay.dateTime.value.toString()}).then((value) => userState.InfoUser(userState.uidtemp.trim()));
+
+                                  },
                                   child: Icon(Icons.edit),
                                 ),
                               )
@@ -266,7 +274,16 @@ class _UserPageState extends State<UserPage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (builder)=>ChatPage(idroom: userState.user.value!.id)));},child: Icon(Icons.support_agent),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (builder) =>
+                      ChatPage(idroom: userState.user.value!.id)));
+        },
+        child: Icon(Icons.support_agent),
+      ),
     );
   }
 }

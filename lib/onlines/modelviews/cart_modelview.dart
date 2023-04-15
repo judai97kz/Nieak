@@ -8,7 +8,7 @@ class CartModelView extends GetxController{
  getAllMapsInArray(String documentId) async {
     final listCheck = Get.put(CartState());
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    final DocumentReference documentReference = _firestore.collection('user').doc(documentId);
+    final DocumentReference documentReference = _firestore.collection('user').doc(documentId.trim());
     DocumentSnapshot documentSnapshot = await documentReference.get();
     List<dynamic> arrayField = documentSnapshot['cart'];
     list_cart.value = arrayField.whereType<Map<String, dynamic>>().toList();

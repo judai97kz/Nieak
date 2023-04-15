@@ -22,6 +22,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Đăng Ký"),
         // ignore: prefer_const_constructors
         leading: BackButton(
           color: Colors.black,
@@ -30,27 +31,34 @@ class _SignupPageState extends State<SignupPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Align(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      "assets/public/signup_logo.png",
-                      height: 100,
-                    )),
-                const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      "Đăng Ký Tài Khoản",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                      ),
-                    )),
-              ],
+            SizedBox(
+              height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Align(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        "assets/public/signup_logo.png",
+                        height: 100,
+                      )),
+                  const Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        "Đăng Ký Tài Khoản",
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      )),
+                ],
+              ),
             ),
             Obx(
               () => Padding(
@@ -78,6 +86,8 @@ class _SignupPageState extends State<SignupPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      obscureText:
+                          signupstate.hidepw.value == true ? true : false,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         labelText: "Mật Khẩu",
@@ -98,8 +108,16 @@ class _SignupPageState extends State<SignupPage> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 25, 20, 0),
                       child: GestureDetector(
-                        onTap: () {},
-                        child: const Icon(Icons.remove_red_eye),
+                        onTap: () {
+                          if (signupstate.hidepw.value == false) {
+                            signupstate.hidepw.value = true;
+                          } else {
+                            signupstate.hidepw.value = false;
+                          }
+                        },
+                        child: signupstate.hidepw.value == true
+                            ? Icon(Icons.remove_red_eye_outlined)
+                            : Icon(Icons.remove_red_eye),
                       ),
                     ),
                   )
@@ -107,22 +125,46 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
             Obx(
-              () => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    labelText: "Mật Khẩu Lặp Lại",
-                    errorText: signupstate.repeatstate == ""
-                        ? null
-                        : signupstate.repeatstate.value,
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(width: 1, color: Colors.black)),
+              () => Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      obscureText:
+                          signupstate.hiderp.value == true ? true : false,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        labelText: "Mật Khẩu Lặp Lại",
+                        errorText: signupstate.repeatstate == ""
+                            ? null
+                            : signupstate.repeatstate.value,
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(
+                                width: 1, color: Colors.black)),
+                      ),
+                      controller: _repeatcontroller,
+                    ),
                   ),
-                  controller: _repeatcontroller,
-                ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 25, 20, 0),
+                      child: GestureDetector(
+                        onTap: () {
+                          if (signupstate.hiderp.value == false) {
+                            signupstate.hiderp.value = true;
+                          } else {
+                            signupstate.hiderp.value = false;
+                          }
+                        },
+                        child: signupstate.hiderp.value == true
+                            ? Icon(Icons.remove_red_eye_outlined)
+                            : Icon(Icons.remove_red_eye),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
 

@@ -59,16 +59,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        final double aspectPor = constraints.maxWidth / constraints.maxHeight;
-        final double aspectLan =
-            constraints.maxHeight * 1.5 / constraints.maxWidth;
+        // final double aspectPor = constraints.maxWidth / constraints.maxHeight*1.1;
+        // final double aspectLan =
+        //     constraints.maxHeight * 1.7 / constraints.maxWidth;
+        int crossAxisCount = constraints.maxWidth ~/ 200;
+        double itemWidth = constraints.maxWidth / crossAxisCount;
         return WillPopScope(
           onWillPop: () async {
             SystemNavigator.pop();
             return false;
           },
-          child: Container(
-            child: Scaffold(
+          child: Scaffold(
+              resizeToAvoidBottomInset: true,
               appBar: AppBar(
                 automaticallyImplyLeading: false,
                 actions: [
@@ -148,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                                           )
                                       ],
                                     ),
-                              toolbarHeight: 200,
+                              toolbarHeight: 150,
                             ))
                       ];
                     },
@@ -160,7 +162,6 @@ class _HomePageState extends State<HomePage> {
 // ignore: avoid_unnecessary_containers
                             child: Obx(
                               () => ListView.builder(
-// controller: _scrollController,
                                   scrollDirection: Axis.horizontal,
                                   shrinkWrap: true,
                                   itemCount: homeModel.list_brand.length,
@@ -227,18 +228,22 @@ class _HomePageState extends State<HomePage> {
                                       itemCount: homeModel.list_product.length,
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount:
-                                            MediaQuery.of(context).orientation ==
-                                                    Orientation.portrait
-                                                ? 2
-                                                : 3,
-                                        childAspectRatio:
-                                            MediaQuery.of(context).orientation ==
-                                                    Orientation.portrait
-                                                ? aspectPor
-                                                : aspectLan,
-                                        crossAxisSpacing: 0.0,
-                                      ),
+                                              crossAxisCount:
+                                                  MediaQuery.of(context)
+                                                              .orientation ==
+                                                          Orientation.portrait
+                                                      ? 2
+                                                      : 3,
+                                              childAspectRatio:
+                                                  MediaQuery.of(context)
+                                                              .orientation ==
+                                                          Orientation.portrait
+                                                      ? itemWidth /
+                                                          (itemWidth * 1.5)
+                                                      : itemWidth /
+                                                          (itemWidth * 1.2),
+                                              crossAxisSpacing: 5,
+                                              mainAxisSpacing: 5),
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         return GestureDetector(
@@ -263,8 +268,8 @@ class _HomePageState extends State<HomePage> {
                       ],
                     )),
               ),
-                floatingActionButton:Obx(
-                    ()=>homeState.showScrollButton==true?FloatingActionButton(
+              floatingActionButton: Obx(() => homeState.showScrollButton == true
+                  ? FloatingActionButton(
                       onPressed: () {
                         _scrollController.animateTo(
                           0.0,
@@ -273,10 +278,8 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                       child: Icon(Icons.arrow_upward),
-                    ):SizedBox.shrink()
-                )
-            ),
-          ),
+                    )
+                  : SizedBox.shrink())),
         );
       },
     );

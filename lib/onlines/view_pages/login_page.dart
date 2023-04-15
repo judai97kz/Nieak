@@ -5,7 +5,6 @@ import 'package:nieak/onlines/view_pages/forget_password_page.dart';
 import 'package:nieak/onlines/view_pages/signup_page.dart';
 import '../modelviews/login_modelview.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -59,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 0,
                       )
                     : Obx(
-                  ()=> Container(
+                        () => Container(
                           height: 300,
                           child: Column(
                             children: [
@@ -67,7 +66,10 @@ class _LoginPageState extends State<LoginPage> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: TextField(
                                   decoration: InputDecoration(
-                                      errorText: loginstate.emailtext.value == "" ?null:loginstate.emailtext.value,
+                                      errorText:
+                                          loginstate.emailtext.value == ""
+                                              ? null
+                                              : loginstate.emailtext.value,
                                       filled: true,
                                       fillColor: Colors.white70,
                                       labelText: "Email"),
@@ -85,14 +87,23 @@ class _LoginPageState extends State<LoginPage> {
                                       children: [
                                         TextField(
                                           decoration: InputDecoration(
-                                              errorText: loginstate.passtext.value == "" ?null:loginstate.passtext.value,
+                                              errorText: loginstate
+                                                          .passtext.value ==
+                                                      ""
+                                                  ? null
+                                                  : loginstate.passtext.value,
                                               filled: true,
                                               fillColor: Colors.white70,
                                               labelText: "Mật khẩu"),
-                                          obscureText: loginstate.hidepass.value == false?true:false,
-                                          style: const TextStyle(color: Colors.black),
+                                          obscureText:
+                                              loginstate.hidepass.value == false
+                                                  ? true
+                                                  : false,
+                                          style: const TextStyle(
+                                              color: Colors.black),
                                           onSubmitted: (passwordcontroller) {
-                                            loginstate.CheckNullText(email.text, password.text, context);
+                                            loginstate.CheckNullText(email.text,
+                                                password.text, context);
                                           },
                                           textInputAction: TextInputAction.done,
                                           controller: password,
@@ -102,14 +113,24 @@ class _LoginPageState extends State<LoginPage> {
                                           child: Align(
                                             alignment: Alignment.centerRight,
                                             child: GestureDetector(
-                                              onTap: (){
-                                                if(loginstate.hidepass==false){
-                                                  loginstate.hidepass.value=true;
-                                                }else{
-                                                  loginstate.hidepass.value=false;
+                                              onTap: () {
+                                                if (loginstate.hidepass ==
+                                                    false) {
+                                                  loginstate.hidepass.value =
+                                                      true;
+                                                } else {
+                                                  loginstate.hidepass.value =
+                                                      false;
                                                 }
                                               },
-                                              child: loginstate.hidepass.value == false?Icon(Icons.remove_red_eye,):Icon(Icons.remove_red_eye_outlined),
+                                              child: loginstate
+                                                          .hidepass.value ==
+                                                      false
+                                                  ? Icon(
+                                                      Icons.remove_red_eye,
+                                                    )
+                                                  : Icon(Icons
+                                                      .remove_red_eye_outlined),
                                             ),
                                           ),
                                         )
@@ -120,7 +141,8 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               GestureDetector(
                                   onTap: () {
-                                   loginstate.CheckNullText(email.text, password.text, context);
+                                    loginstate.CheckNullText(
+                                        email.text, password.text, context);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -128,10 +150,12 @@ class _LoginPageState extends State<LoginPage> {
                                       height: 40,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.orangeAccent.withOpacity(0.5),
+                                              color: Colors.orangeAccent
+                                                  .withOpacity(0.5),
                                               offset: const Offset(0.0, 1.0),
                                               blurRadius: 2.0,
                                               spreadRadius: 0.0,
@@ -157,24 +181,36 @@ class _LoginPageState extends State<LoginPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text("Chưa có tài khoản?",style: TextStyle(color: Colors.white),),
+                                    Text(
+                                      "Chưa có tài khoản?",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                     GestureDetector(
                                       child: const Text(
                                         "Đăng ký ngay!",
                                         style: TextStyle(
-                                            decoration: TextDecoration.underline,
+                                            decoration:
+                                                TextDecoration.underline,
                                             color: Colors.blue),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => ForgetPasswordPage()));
-                                },
-                                child:  Text("Quên mật khẩu?",style: TextStyle(color: Colors.white),),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ForgetPasswordPage()));
+                                  },
+                                  child: Text(
+                                    "Quên mật khẩu?",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 20,
@@ -188,7 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                         ),
-                    )),
+                      )),
                 Obx(() => loginstate.phonestate == 0
                     ? SizedBox(
                         height: 0,

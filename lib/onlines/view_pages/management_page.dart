@@ -4,7 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:nieak/onlines/modelviews/cart_modelview.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/statepages/management_state.dart';
-import 'package:nieak/onlines/view_pages/add_new_product_page.dart';
+import 'package:nieak/onlines/view_pages/admin/add_new_product_page.dart';
 import 'package:nieak/onlines/view_pages/admin/admin_page.dart';
 import 'package:nieak/onlines/view_pages/cart_page.dart';
 import 'package:nieak/onlines/view_pages/home_page.dart';
@@ -33,7 +33,6 @@ class _ManagementPageState extends State<ManagementPage> {
       roleuser.user.value!.role == 1 ? AdminPage() : null
     ];
     cartState.getAllMapsInArray(roleuser.uidtemp.toString());
-
   }
 
   @override
@@ -47,10 +46,9 @@ class _ManagementPageState extends State<ManagementPage> {
               body: _screen[managementState.currentindex.value],
               bottomNavigationBar: roleuser.user.value!.role == 1
                   ? Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black)
-                ),
-                    child: BottomNavigationBar(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: BottomNavigationBar(
                         type: BottomNavigationBarType.fixed,
                         currentIndex: managementState.currentindex.value,
                         onTap: (index) => setState(() {
@@ -105,12 +103,11 @@ class _ManagementPageState extends State<ManagementPage> {
                               label: 'Admin')
                         ],
                       ),
-                  )
+                    )
                   : Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black)
-                ),
-                    child: BottomNavigationBar(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: BottomNavigationBar(
                         type: BottomNavigationBarType.fixed,
                         currentIndex: managementState.currentindex.value,
                         onTap: (index) => setState(() {
@@ -162,7 +159,7 @@ class _ManagementPageState extends State<ManagementPage> {
                               icon: Icon(Icons.person), label: 'User'),
                         ],
                       ),
-                  )),
+                    )),
     );
   }
 }

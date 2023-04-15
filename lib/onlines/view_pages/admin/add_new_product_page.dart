@@ -51,6 +51,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          title: Text("Thêm Sản Phẩm Mới"),
           leading: BackButton(
             onPressed: () {
               files = [];
@@ -156,6 +157,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                       controller: _priceshoes,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: "Giá sản phẩm",
                           errorText: addState.pricetext.value == ""
@@ -167,8 +169,10 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                     controller: _minshoes,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         labelText: "Kích thước tối thiểu",
+
                         errorText: addState.mintext.value == ""
                             ? null
                             : addState.mintext.value)),
@@ -178,6 +182,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                       controller: _maxshoes,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: "Kích thước tối đa",
                           errorText: addState.maxtext.value == ""
@@ -190,6 +195,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                       controller: _amoutshoes,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: "Số lượng",
                           errorText: addState.amounttext.value == ""

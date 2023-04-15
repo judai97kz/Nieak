@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nieak/onlines/statepages/pay_state.dart';
-import 'package:nieak/onlines/view_pages/management_page.dart';
 
 class PaySuccessPage extends StatefulWidget {
   const PaySuccessPage({Key? key}) : super(key: key);
@@ -24,6 +23,7 @@ class _PaySuccessPageState extends State<PaySuccessPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset("assets/public/order_success.png",height: 80,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(

@@ -43,7 +43,27 @@ class _ManagementCategoryPageState extends State<ManagementCategoryPage> {
                             alignment: Alignment.centerRight,
                             child: GestureDetector(
                               onTap: () {
-                                listBrand.deleteCategory(index);
+                                AlertDialog dialog = AlertDialog(
+                                  title: Text("Thông Báo"),
+                                  content: Text("Bạn có muốn thương hiệu này?"),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () async {
+                                          listBrand.deleteCategory(index);
+                                          Navigator.of(context).pop();
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text("Đã xóa sản phẩm")));
+                                        },
+                                        child: Text("Xác nhận")),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text("Hủy"))
+                                  ],
+                                );
+                                showDialog(context: context, builder: (context) => dialog);
+
                               },
                               child: Icon(Icons.remove_circle),
                             ),

@@ -25,7 +25,7 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    cartModel.getAllMapsInArray(uidtemp.uidtemp.toString());
+    cartModel.getAllMapsInArray(uidtemp.user.value!.id);
     listCheck.createList(cartModel.list_cart.length);
     listCheck.checkTrue();
   }

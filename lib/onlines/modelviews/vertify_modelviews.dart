@@ -20,8 +20,6 @@ class VertifyModelView extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('uid', uid);
       await roleuser.InfoUser(uid);
-      DocumentSnapshot<Map<String, dynamic>> check =
-          await FirebaseFirestore.instance.collection('user').doc(uid).get();
       if (docSnapshot['disable'] == true) {
         print("Vo");
       } else {

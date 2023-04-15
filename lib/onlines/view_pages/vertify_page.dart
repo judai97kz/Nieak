@@ -23,7 +23,7 @@ class _VerificationPageState extends State<VerificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Verify Phone Number'),
+        title: Text('Xác Minh Số Điện Thoại'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -31,16 +31,19 @@ class _VerificationPageState extends State<VerificationPage> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20.0),
-              TextFormField(
-                controller: _smsCodeController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  hintText: 'Verification code',
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: _smsCodeController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'Verification code',
+                  ),
                 ),
               ),
               SizedBox(height: 20.0),
               ElevatedButton(
-                child: Text('Verify'),
+                child: Text('Xác Minh'),
                 onPressed: () async {
                   PhoneAuthCredential credential = PhoneAuthProvider.credential(
                     verificationId: widget.verificationId,

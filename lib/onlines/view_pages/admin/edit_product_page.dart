@@ -60,7 +60,9 @@ class _EditProductPageState extends State<EditProductPage> {
         return true;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
+          title: Text("Sửa Thông Tin Sản Phẩm"),
           leading: BackButton(
             onPressed: () {
               files = [];
@@ -71,6 +73,7 @@ class _EditProductPageState extends State<EditProductPage> {
           ),
         ),
         body: SingleChildScrollView(
+
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
@@ -168,6 +171,7 @@ class _EditProductPageState extends State<EditProductPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                       controller: _priceshoes,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: "Giá sản phẩm",
                           errorText: addState.pricetext.value == ""
@@ -179,6 +183,7 @@ class _EditProductPageState extends State<EditProductPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                     controller: _minshoes,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         labelText: "Kích thước tối thiểu",
                         errorText: addState.mintext.value == ""
@@ -190,6 +195,7 @@ class _EditProductPageState extends State<EditProductPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                       controller: _maxshoes,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: "Kích thước tối đa",
                           errorText: addState.maxtext.value == ""
@@ -202,6 +208,7 @@ class _EditProductPageState extends State<EditProductPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                       controller: _amoutshoes,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: "Số lượng",
                           errorText: addState.amounttext.value == ""

@@ -23,8 +23,10 @@ class CreateInfoState extends GetxController {
         initialDate: DateTime.now(),
         firstDate: DateTime(1970, 1),
         lastDate: DateTime(2101));
-    if (picked != null)
+    if (picked != null) {
       dateTime.value = DateFormat('dd/MM/yyyy').format(picked);
+      print(dateTime);
+    }
   }
 
   Future<String> uploadFile(PlatformFile? pickedFile) async {
@@ -51,10 +53,15 @@ class CreateInfoState extends GetxController {
 
   CheckNull(String name, String date, String email, String phone,
       String address, PlatformFile? pickedFile, BuildContext context) async {
-    print(pickedFile!.path);
     final userstate = Get.put(UserState());
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
     print(userstate.userinfo);
+    print(pickedFile);
+    if (pickedFile == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Hẫy chọn ảnh đại diện")));
+      return;
+    }
     if (name == "") {
       fullname.value = "Không được bỏ trống!";
       return;
@@ -76,10 +83,17 @@ class CreateInfoState extends GetxController {
       return;
     }
     addresstext.value = "";
-
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
     String imgUrl = await uploadFile(pickedFile);
     UserModel newuser = UserModel(
-      id:userstate.userinfo.value!.user!.uid,
+        id: userstate.userinfo.value!.user!.uid,
         name: name,
         phone: phone,
         address: address,
@@ -88,7 +102,6 @@ class CreateInfoState extends GetxController {
         imageAvatar: imgUrl,
         disable: false,
         role: 0);
-    print(userstate.uidtemp);
     firestore
         .collection('user')
         .doc(userstate.userinfo.value!.user!.uid)
@@ -102,6 +115,7 @@ class CreateInfoState extends GetxController {
       final docSnapshot = await myDocRef.get();
       if (docSnapshot.exists) {
         await userstate.InfoUser(userstate.userinfo.value!.user!.uid);
+        Navigator.pop(context);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

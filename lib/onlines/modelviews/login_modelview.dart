@@ -96,7 +96,7 @@ class LoginModelView {
     try {
       if (docSnapshot.exists) {
         if (docSnapshot['disable'] == true) {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (BuildContext context) => DisableAccountPage(),
@@ -135,8 +135,7 @@ class LoginModelView {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('uid', uid);
         if (docSnapshot['disable'] == true) {
-          print("vo hieu");
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (BuildContext context) => DisableAccountPage(),
@@ -149,11 +148,8 @@ class LoginModelView {
               builder: (BuildContext context) => ManagementPage(),
             ),
           );
-          print("Dang nhap thanh cong");
         }
       } else {
-        print("vThem thong tin");
-        print(roleuser.user);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (builder) => CreateInfoPage()));
       }
@@ -188,9 +184,7 @@ class LoginModelView {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => VertifyEmailPage()));
         }
-      } catch (e) {
-        print("lo");
-      }
+      } catch (e) {}
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(

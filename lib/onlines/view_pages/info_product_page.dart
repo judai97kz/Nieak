@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nieak/onlines/mini_widget/comment_widget.dart';
 import 'package:nieak/onlines/mini_widget/modal_action_info_product_page.dart';
-import 'package:nieak/onlines/mini_widget/product_widget.dart';
 import 'package:nieak/onlines/models/comment_model.dart';
 import 'package:nieak/onlines/modelviews/cart_modelview.dart';
 import 'package:nieak/onlines/modelviews/comment_modelview.dart';
@@ -13,7 +12,6 @@ import 'package:nieak/onlines/modelviews/home_modelview.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/statepages/info_product_state.dart';
 import 'package:nieak/onlines/statepages/management_state.dart';
-import 'package:nieak/onlines/view_pages/management_page.dart';
 import 'package:photo_view/photo_view.dart';
 
 class InfoProductPage extends StatefulWidget {
@@ -33,7 +31,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
   final commentModel = Get.put(CommentModelView());
   final homeModel = Get.put(HomeModelView());
   final _commentController = TextEditingController();
- final managementState = Get.put(ManagementState());
+  final managementState = Get.put(ManagementState());
   Future<void> _onRefresh() async {
     setState(() {
       print("Hello");
@@ -83,40 +81,41 @@ class _InfoProductPageState extends State<InfoProductPage> {
         children: [
           Scaffold(
               resizeToAvoidBottomInset: true,
-              appBar: AppBar(actions: [
-                GestureDetector(
-                  onTap: (){
-                    managementState.currentindex.value=1;
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          const Align(
-                            alignment: Alignment.center,
-                            child: Icon(Icons.shopping_cart),
-                          ),
-                          Align(
-                              alignment: Alignment.topRight,
-                              child: Obx(
-                                    () => Padding(
-                                  padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                                  child: CircleAvatar(
-                                    radius: 7,
-                                    backgroundColor: Colors.red,
-                                    child: Text(
-                                      cartModel.list_cart.length.toString(),
-                                      style: const TextStyle(fontSize: 10),
-                                    ),
+              appBar: AppBar(
+                title: Text("Thông Tin Sản Phẩm"),
+                actions: [
+                  GestureDetector(
+                    onTap: () {
+                      managementState.currentindex.value = 1;
+                      Navigator.pop(context);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Stack(alignment: Alignment.center, children: [
+                        const Align(
+                          alignment: Alignment.center,
+                          child: Icon(Icons.shopping_cart),
+                        ),
+                        Align(
+                            alignment: Alignment.topRight,
+                            child: Obx(
+                              () => Padding(
+                                padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                child: CircleAvatar(
+                                  radius: 7,
+                                  backgroundColor: Colors.red,
+                                  child: Text(
+                                    cartModel.list_cart.length.toString(),
+                                    style: const TextStyle(fontSize: 10),
                                   ),
                                 ),
-                              )),
-                        ]),
+                              ),
+                            )),
+                      ]),
+                    ),
                   ),
-                ),
-              ],),
+                ],
+              ),
               body: RefreshIndicator(
                 onRefresh: _onRefresh,
                 child: Stack(children: [
@@ -309,7 +308,8 @@ class _InfoProductPageState extends State<InfoProductPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
-                            decoration: const InputDecoration(hintText: "Bình Luận"),
+                            decoration:
+                                const InputDecoration(hintText: "Bình Luận"),
                             controller: _commentController,
                             maxLines: null,
                           ),
@@ -326,7 +326,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
                                   idproduct: widget.shoe['idshoes'],
                                   datecomment: date.toString(),
                                   rating: ipState.rate.value);
-                              commentModel.addComment(newcmt);
+                              commentModel.addComment(newcmt, context);
                               ipState.rate.value = 1;
                               _commentController.clear();
                             },
@@ -344,18 +344,22 @@ class _InfoProductPageState extends State<InfoProductPage> {
                           height: 10,
                         ),
                         Obx(
-                            ()=> Padding(
+                          () => Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Container(
-                              height: commentModel.list_cmt.length == 0?50:400,
+                              height:
+                                  commentModel.list_cmt.length == 0 ? 50 : 400,
                               child: Obx(
                                 () => commentModel.list_cmt.length == 0
-                                    ? const Center(child: Text("Chưa có bình luận cho sản phẩm"))
+                                    ? const Center(
+                                        child: Text(
+                                            "Chưa có bình luận cho sản phẩm"))
                                     : ListView.builder(
                                         itemCount: commentModel.list_cmt.length,
                                         itemBuilder: (context, index) {
                                           return CommentWidget(
-                                            comment: commentModel.list_cmt[index],
+                                            comment:
+                                                commentModel.list_cmt[index],
                                           );
                                         }),
                               ),

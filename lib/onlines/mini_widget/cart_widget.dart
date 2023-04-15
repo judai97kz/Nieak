@@ -65,7 +65,7 @@ Widget CartWidget(BuildContext context, Map<String, dynamic> product,int index) 
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 15, 8, 0),
               child: GestureDetector(onTap: (){
-                cartModel.deleteProductFromCart(uidtemp.uidtemp.toString(), index);
+                cartModel.deleteProductFromCart(uidtemp.user.value!.id, index);
               },child: Icon(Icons.remove_circle,color: Colors.red,),),
             ))
       ],

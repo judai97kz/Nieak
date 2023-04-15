@@ -164,11 +164,13 @@ class _CreateInfoPageState extends State<CreateInfoPage> {
                 ), //Nhập địa chỉ
                 ElevatedButton(
                     onPressed: () async {
+                      var phone = roleuser.userinfo.value!.user!.phoneNumber;
+                      var mail = roleuser.userinfo.value!.user!.email;
                       createinfoState.CheckNull(
                           _nametextcontroller.text,
                           createinfoState.dateTime.toString(),
-                          _mailtextcontroller.text,
-                          _phonetextcontroller.text,
+                          mail==null?_mailtextcontroller.text:mail!,
+                          roleuser.userinfo.value!.user!.phoneNumber==null?_phonetextcontroller.text:phone!,
                           _addresstextcontroller.text,
                           pickedFile,
                           context);
