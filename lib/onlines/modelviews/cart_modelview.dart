@@ -1,5 +1,8 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:nieak/onlines/modelviews/home_modelview.dart';
+import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/statepages/cart_state.dart';
 
 class CartModelView extends GetxController{
@@ -22,5 +25,71 @@ class CartModelView extends GetxController{
     myArray.removeAt(i);
     await documentRef.update({'cart': myArray});
     await getAllMapsInArray(documentId);
+  }
+
+  addOrUpdateMap(String documentId, String fieldName,
+      Map<String, dynamic> mapToAdd,int value) async {
+    final userModel = Get.put(UserState());
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    final DocumentReference documentReference =
+    _firestore.collection('user').doc(documentId.trim());
+    DocumentSnapshot docSnapshot = await documentReference.get();
+    Map<String, dynamic> docData = docSnapshot.data() as Map<String, dynamic>;
+
+    // Tìm kiếm mục dữ liệu bạn muốn kiểm tra và kiểm tra xem nó có phải là danh sách các Map không
+    if (docData.containsKey(fieldName) && docData[fieldName] is List) {
+      List<Map<String, dynamic>> mapList =
+      List<Map<String, dynamic>>.from(docData[fieldName]);
+
+      // Tìm map trong danh sách dựa trên thuộc tính nameproduct và size
+      int existingMapIndex = mapList.indexWhere((element) =>
+      element['idshoes'] == mapToAdd['idshoes'] &&
+          element['size'] == mapToAdd['size']);
+
+      mapList[existingMapIndex]['amount'] = value;
+      getAllMapsInArray(userModel.user.value!.id);
+
+      // Cập nhật dữ liệu trong Firestore
+      await documentReference.update({fieldName: mapList});
+    } else {
+      throw Exception('Invalid data structure or missing key');
+    }
+  }
+
+  addAmount(Map<String,dynamic> shoe) async {
+
+    final homeModel = Get.put(HomeModelView());
+    final userModel = Get.put(UserState());
+    var temp = homeModel.list_product.firstWhere((element) => element['idshoes']==shoe['idshoes']);
+    Map<String, dynamic> mapToAdd = {
+      'sale':shoe['sale'],
+      'idshoes': shoe["idshoes"],
+      'nameproduct': shoe["nameproduct"],
+      'price': temp["price"],
+      'image': shoe['image'],
+      'size': shoe['size'],
+      'amount': shoe['amount'],
+    };
+    if(shoe['amount']<temp['amount']) {
+      await addOrUpdateMap(userModel.user.value!.id, 'cart', mapToAdd, shoe['amount']+1);
+    }
+  }
+  removeAmount(Map<String,dynamic> shoe) async {
+
+    final homeModel = Get.put(HomeModelView());
+    final userModel = Get.put(UserState());
+    var temp = homeModel.list_product.firstWhere((element) => element['idshoes']==shoe['idshoes']);
+    Map<String, dynamic> mapToAdd = {
+      'sale':shoe['sale'],
+      'idshoes': shoe["idshoes"],
+      'nameproduct': shoe["nameproduct"],
+      'price': temp["price"],
+      'image': shoe['image'],
+      'size': shoe['size'],
+      'amount': shoe['amount'],
+    };
+    if(shoe['amount']>1) {
+      await addOrUpdateMap(userModel.user.value!.id, 'cart', mapToAdd, shoe['amount']-1);
+    }
   }
 }

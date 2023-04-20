@@ -187,25 +187,77 @@ class _InfoProductPageState extends State<InfoProductPage> {
                                   ),
                                   width: 300,
                                 ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Stack(
-                            alignment: Alignment.centerLeft,
-                            children: [
-                              Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Container(
+                              ),
+                              widget.shoe["sale"] == 0?SizedBox(height: 0,): Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  color: Colors.red,
+                                  height: 60,
+                                  width: 50,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                                    child: Center(
                                       child: Text(
-                                    "${myFormat.format(widget.shoe["price"])} đ",
-                                    style: TextStyle(color: Colors.red),
-                                  ))),
+                                        "Sale ${widget.shoe['sale']}%",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
+                        widget.shoe["price"] == 0
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Container(
+                                        child: Text(
+                                      "${myFormat.format(widget.shoe["price"])} đ",
+                                      style: TextStyle(color: Colors.red),
+                                    ))),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Container(
+                                        child: Text(
+                                      "${myFormat.format(widget.shoe["price"])} đ",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          decoration:
+                                              TextDecoration.lineThrough),
+                                    ))),
+                              ),
+                        widget.shoe["price"] == 0
+                            ? SizedBox(
+                                height: 0,
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.fromLTRB(8, 2, 8, 8),
+                                child: Stack(
+                                  alignment: Alignment.centerLeft,
+                                  children: [
+                                    Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Container(
+                                            child: Text(
+                                          "${myFormat.format(widget.shoe["price"]*(100-widget.shoe["sale"])/100)} đ",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                              color: Colors.red,
+                                             ),
+                                        ))),
+                                  ],
+                                ),
+                              ),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Obx(
@@ -445,7 +497,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
                         BoxDecoration(border: Border.all(color: Colors.black)),
                     child: Row(
                       children: [
-                        Expanded(
+                        Flexible(
                           child: GestureDetector(
                             onTap: () async {
                               // await addValueToArray('image1', 'image', 'new_value');
@@ -468,7 +520,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.black)),
                         ),
-                        Expanded(
+                        Flexible(
                             child: GestureDetector(
                           onTap: () {
                             modalAction.BuyNow(context, widget.shoe);

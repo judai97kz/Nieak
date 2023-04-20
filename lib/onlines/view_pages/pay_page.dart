@@ -93,11 +93,14 @@ class _PayPageState extends State<PayPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                        height: 30,
-                        child: Center(child: Text("Chi tiết đơn hàng"))),
                     Padding(
-                      padding: const EdgeInsets.all(2.0),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          height: 30,
+                          child: Center(child: Text("Chi Tiết Đơn Hàng",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
                       child: Container(
                         child: Obx(() => ListView.builder(
                               shrinkWrap: true,
@@ -113,12 +116,23 @@ class _PayPageState extends State<PayPage> {
                           child: Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          "Tổng Tiền: ${myFormat.format(payState.allsum.value)}",
+                          "Tổng Tiền: ${myFormat.format(payState.allsum.value)}đ",style: TextStyle(fontSize: 15),
                         ),
                       )),
                     ),
-                    Container(
-                        child: Center(child: Text("Thông tin người nhận"))),
+                    Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width/2,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          child: Center(child: Text("Thông Tin Người Nhận",style: TextStyle(fontSize: 20),))),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text("Khách hàng: ${userInfo.user.value!.name}"),
@@ -130,6 +144,17 @@ class _PayPageState extends State<PayPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text("Địa chỉ: ${userInfo.user.value!.address}"),
+                    ),Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width/2,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black)
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Chú ý: bạn chỉ có thể hủy đơn hàng khi đơn hàng đó chưa được xác thực. Nếu bạn muốn hủy đơn hàng sau khi đơn hàng được xác thực, xin hãy liên hệ với nhận viên qua mục 'Liên Hệ' để được giải quyết!"),
                     )
                   ],
                 ),

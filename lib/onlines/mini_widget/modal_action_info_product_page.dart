@@ -13,13 +13,12 @@ class ActionModal {
   final usertemp = Get.put(UserState());
   final cartState =Get.put(CartModelView());
 
-  Future<void> addOrUpdateMap(String documentId, String fieldName,
+  addOrUpdateMap(String documentId, String fieldName,
       Map<String, dynamic> mapToAdd) async {
     print(documentId);
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
     final DocumentReference documentReference =
         _firestore.collection('user').doc(documentId.trim());
-
     DocumentSnapshot docSnapshot = await documentReference.get();
     Map<String, dynamic> docData = docSnapshot.data() as Map<String, dynamic>;
 
@@ -269,7 +268,7 @@ class ActionModal {
                           Navigator.push(context, MaterialPageRoute(builder: (builder)=>PayPage()));
 
                         },
-                        child: const Text("Thêm"),
+                        child: const Text("Mua Ngay"),
                       ),
                     )
                   ],

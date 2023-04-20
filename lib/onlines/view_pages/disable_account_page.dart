@@ -19,6 +19,7 @@ class _DisableAccountPageState extends State<DisableAccountPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.red,
           title: Text("Thông báo"),
           leading: BackButton(
             onPressed: () async {
@@ -39,6 +40,13 @@ class _DisableAccountPageState extends State<DisableAccountPage> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Tài khoản của bạn đã bị vô hiệu hóa do vi phạm chính sách của chúng tôi!",
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Nếu có khuyến nại về việc này, xin hãy liên hệ tới số điện thoại '0367989659' để được hỗ trợ!",
                 textAlign: TextAlign.center,
               ),
             ),

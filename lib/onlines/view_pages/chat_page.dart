@@ -38,7 +38,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Chat Room')),
+      appBar: AppBar(title: Text('Liên Hệ')),
       body: Column(
         children: [
           Expanded(

@@ -25,18 +25,22 @@ Widget MiniProduct(BuildContext context, Map<String, dynamic> shoes) {
                   )
                 : Align(
                     alignment: Alignment.topLeft,
-                    child: Container(
-                      color: Colors.red,
-                      height: 35,
-                      width: 35,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                        child: Text(
-                          "Sale ${shoes['sale']}%",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Container(
+                        color: Colors.red,
+                        height: 45,
+                        width: 40,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                          child: Text(
+                            "Sale ${shoes['sale']}%",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10),
+                          ),
                         ),
                       ),
                     )),
