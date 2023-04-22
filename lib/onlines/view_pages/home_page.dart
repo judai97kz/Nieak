@@ -59,9 +59,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        // final double aspectPor = constraints.maxWidth / constraints.maxHeight*1.1;
-        // final double aspectLan =
-        //     constraints.maxHeight * 1.7 / constraints.maxWidth;
         int crossAxisCount = constraints.maxWidth ~/ 200;
         double itemWidth = constraints.maxWidth / crossAxisCount;
         return WillPopScope(
@@ -86,6 +83,7 @@ class _HomePageState extends State<HomePage> {
                       autoFocus: true,
 // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
                       onSubmitted: (key) {
+                        homeState.categoryState.value="All";
                         homeModel.GetProductTemp(findtext.text);
                       },
                     ),
@@ -175,15 +173,34 @@ class _HomePageState extends State<HomePage> {
                                             homeModel.GetProductByBrand(
                                                 homeModel.list_brand[index]);
                                           }
+                                          homeState.categoryState.value=homeModel.list_brand[index];
                                         },
-                                        child: Padding(
+                                        child: Obx(()=>homeState.categoryState==homeModel.list_brand[index]?Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Container(
+                                            width: 60,
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: Colors.black),
+                                                borderRadius:
+                                                BorderRadius.circular(5),
+                                                color: Colors.white),
+                                            child: Center(
+                                              child: Text(
+                                                homeModel.list_brand[index],
+                                                style: const TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                            ),
+                                          ),
+                                        ): Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: Container(
                                             width: 60,
                                             height: 40,
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(5),
+                                                BorderRadius.circular(5),
                                                 color: Colors.blue),
                                             child: Center(
                                               child: Text(
@@ -193,7 +210,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                           ),
-                                        ),
+                                        ),)
                                       )),
                             )),
                         Obx(

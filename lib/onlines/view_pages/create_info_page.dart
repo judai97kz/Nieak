@@ -14,7 +14,7 @@ class CreateInfoPage extends StatefulWidget {
 
 class _CreateInfoPageState extends State<CreateInfoPage> {
   PlatformFile? pickedFile;
-  late File files;
+
 
   late String Url;
   final userstate = Get.put(UserState());
@@ -28,7 +28,6 @@ class _CreateInfoPageState extends State<CreateInfoPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(roleuser.userinfo.value!.user!.phoneNumber);
   }
 
   Future selectFile() async {

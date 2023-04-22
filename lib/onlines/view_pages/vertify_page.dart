@@ -49,7 +49,6 @@ class _VerificationPageState extends State<VerificationPage> {
                     verificationId: widget.verificationId,
                     smsCode: _smsCodeController.text,
                   );
-                  print("credential: ${credential}");
                   try {
                     UserCredential userCredential = await FirebaseAuth.instance
                         .signInWithCredential(credential);

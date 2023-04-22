@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.judai.nieak">
    <application
-        android:label="nieak"
+        android:label="Nieak"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/nieaklogo">
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -23,11 +23,17 @@ class _PaySuccessPageState extends State<PaySuccessPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("assets/public/order_success.png",height: 80,),
+              Image.asset(
+                "assets/public/order_success.png",
+                height: 80,
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                    "Thanh toán thành công, đơn hàng của bạn sẽ sớm được xác nhận!",style: TextStyle(),textAlign: TextAlign.center,),
+                  "Thanh toán thành công, đơn hàng của bạn sẽ sớm được xác nhận!",
+                  style: TextStyle(),
+                  textAlign: TextAlign.center,
+                ),
               ),
               ElevatedButton(
                   onPressed: () {

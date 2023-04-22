@@ -17,7 +17,6 @@ class _ManagementMessagepageState extends State<ManagementMessagepage> {
     // TODO: implement initState
     super.initState();
     chatRoomModel.getChatRoom();
-    print(chatRoomModel.list_chat_room.length);
   }
 
   @override

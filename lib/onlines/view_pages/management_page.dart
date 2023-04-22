@@ -52,7 +52,6 @@ class _ManagementPageState extends State<ManagementPage> {
                         type: BottomNavigationBarType.fixed,
                         currentIndex: managementState.currentindex.value,
                         onTap: (index) => setState(() {
-                          print(index);
                           managementState.currentindex.value = index;
                         }),
                         items: [
@@ -111,7 +110,6 @@ class _ManagementPageState extends State<ManagementPage> {
                         type: BottomNavigationBarType.fixed,
                         currentIndex: managementState.currentindex.value,
                         onTap: (index) => setState(() {
-                          print(index);
                           managementState.currentindex.value = index;
                         }),
                         items: [

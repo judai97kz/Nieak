@@ -188,27 +188,32 @@ class _InfoProductPageState extends State<InfoProductPage> {
                                   width: 300,
                                 ),
                               ),
-                              widget.shoe["sale"] == 0?SizedBox(height: 0,): Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  color: Colors.red,
-                                  height: 60,
-                                  width: 50,
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                                    child: Center(
-                                      child: Text(
-                                        "Sale ${widget.shoe['sale']}%",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15),
+                              widget.shoe["sale"] == 0
+                                  ? SizedBox(
+                                      height: 0,
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        color: Colors.red,
+                                        height: 60,
+                                        width: 50,
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              8, 8, 8, 8),
+                                          child: Center(
+                                            child: Text(
+                                              "Sale ${widget.shoe['sale']}%",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -249,11 +254,11 @@ class _InfoProductPageState extends State<InfoProductPage> {
                                         alignment: Alignment.bottomLeft,
                                         child: Container(
                                             child: Text(
-                                          "${myFormat.format(widget.shoe["price"]*(100-widget.shoe["sale"])/100)} đ",
+                                          "${myFormat.format(widget.shoe["price"] * (100 - widget.shoe["sale"]) / 100)} đ",
                                           style: TextStyle(
                                             fontSize: 18,
-                                              color: Colors.red,
-                                             ),
+                                            color: Colors.red,
+                                          ),
                                         ))),
                                   ],
                                 ),
@@ -277,9 +282,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
                                     Icons.star,
                                     color: Colors.amber,
                                   ),
-                                  onRatingUpdate: (rating) {
-                                    print(rating);
-                                  },
+                                  onRatingUpdate: (rating) {},
                                 ),
                                 Text("(${commentModel.rate.toString()}/5.0)")
                               ],

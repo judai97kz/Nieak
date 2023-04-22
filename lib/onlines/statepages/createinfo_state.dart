@@ -25,7 +25,6 @@ class CreateInfoState extends GetxController {
         lastDate: DateTime(2101));
     if (picked != null) {
       dateTime.value = DateFormat('dd/MM/yyyy').format(picked);
-      print(dateTime);
     }
   }
 
@@ -41,15 +40,15 @@ class CreateInfoState extends GetxController {
     return urlDL;
   }
 
-  _addMapToArray(String documentId, String fieldName,
-      Map<String, dynamic> mapToAdd) async {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    final DocumentReference documentReference =
-        _firestore.collection('user').doc(documentId);
-    await documentReference.update({
-      fieldName: FieldValue.arrayUnion([mapToAdd]),
-    });
-  }
+  // _addMapToArray(String documentId, String fieldName,
+  //     Map<String, dynamic> mapToAdd) async {
+  //   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  //   final DocumentReference documentReference =
+  //       _firestore.collection('user').doc(documentId);
+  //   await documentReference.update({
+  //     fieldName: FieldValue.arrayUnion([mapToAdd]),
+  //   });
+  // }
 
   CheckNull(String name, String date, String email, String phone,
       String address, PlatformFile? pickedFile, BuildContext context) async {

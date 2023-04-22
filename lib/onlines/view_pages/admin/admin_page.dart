@@ -4,7 +4,6 @@ import 'package:nieak/onlines/view_pages/admin/management_category_page.dart';
 import 'package:nieak/onlines/view_pages/admin/management_message_page.dart';
 import 'package:nieak/onlines/view_pages/admin/management_product_page.dart';
 import 'package:nieak/onlines/view_pages/admin/management_user_page.dart';
-import 'package:nieak/onlines/view_pages/chat_page.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -156,8 +155,10 @@ class _AdminPageState extends State<AdminPage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (builder) => ManagementMessagepage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (builder) => ManagementMessagepage()));
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),

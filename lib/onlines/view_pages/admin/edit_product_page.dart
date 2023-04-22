@@ -36,7 +36,6 @@ class _EditProductPageState extends State<EditProductPage> {
     });
   }
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -73,7 +72,6 @@ class _EditProductPageState extends State<EditProductPage> {
           ),
         ),
         body: SingleChildScrollView(
-
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
@@ -230,7 +228,6 @@ class _EditProductPageState extends State<EditProductPage> {
               ), //mau
               ElevatedButton(
                   onPressed: () async {
-                    print(widget.product['image']);
                     addState.updateData(
                         widget.product['idshoes'],
                         _nameshoes.text,
@@ -242,8 +239,7 @@ class _EditProductPageState extends State<EditProductPage> {
                         _colorshoes.text,
                         files,
                         context,
-                      widget.product['image']
-                    );
+                        widget.product['image']);
                     homestate.GetAllProduct();
                   },
                   child: Text("Cập nhật thông tin"))

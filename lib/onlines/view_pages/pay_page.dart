@@ -56,7 +56,7 @@ class _PayPageState extends State<PayPage> {
     // TODO: implement initState
     super.initState();
     payState.sumprice();
-    print(payState.allsum);
+
     for (int i = 0; i < cartTemp.list_temp.length; i++) {
       var tempprice = 0;
       if (cartTemp.list_temp[i]['sale'] == 0) {
@@ -77,7 +77,6 @@ class _PayPageState extends State<PayPage> {
       };
       listProduct.add(item);
     }
-    print(listProduct);
   }
 
   @override
@@ -97,7 +96,13 @@ class _PayPageState extends State<PayPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                           height: 30,
-                          child: Center(child: Text("Chi Tiết Đơn Hàng",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),)),
+                          child: Center(
+                            child: Text(
+                              "Chi Tiết Đơn Hàng",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          )),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
@@ -116,22 +121,26 @@ class _PayPageState extends State<PayPage> {
                           child: Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          "Tổng Tiền: ${myFormat.format(payState.allsum.value)}đ",style: TextStyle(fontSize: 15),
+                          "Tổng Tiền: ${myFormat.format(payState.allsum.value)}đ",
+                          style: TextStyle(fontSize: 15),
                         ),
                       )),
                     ),
                     Center(
                       child: Container(
-                        width: MediaQuery.of(context).size.width/2,
+                        width: MediaQuery.of(context).size.width / 2,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black)
-                        ),
+                            border: Border.all(color: Colors.black)),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                          child: Center(child: Text("Thông Tin Người Nhận",style: TextStyle(fontSize: 20),))),
+                          child: Center(
+                              child: Text(
+                        "Thông Tin Người Nhận",
+                        style: TextStyle(fontSize: 20),
+                      ))),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -144,17 +153,18 @@ class _PayPageState extends State<PayPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text("Địa chỉ: ${userInfo.user.value!.address}"),
-                    ),Center(
+                    ),
+                    Center(
                       child: Container(
-                        width: MediaQuery.of(context).size.width/2,
+                        width: MediaQuery.of(context).size.width / 2,
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black)
-                        ),
+                            border: Border.all(color: Colors.black)),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Chú ý: bạn chỉ có thể hủy đơn hàng khi đơn hàng đó chưa được xác thực. Nếu bạn muốn hủy đơn hàng sau khi đơn hàng được xác thực, xin hãy liên hệ với nhận viên qua mục 'Liên Hệ' để được giải quyết!"),
+                      child: Text(
+                          "Chú ý: bạn chỉ có thể hủy đơn hàng khi đơn hàng đó chưa được xác thực. Nếu bạn muốn hủy đơn hàng sau khi đơn hàng được xác thực, xin hãy liên hệ với nhận viên qua mục 'Liên Hệ' để được giải quyết!"),
                     )
                   ],
                 ),
@@ -208,7 +218,6 @@ class _PayPageState extends State<PayPage> {
                               note:
                                   "Contact us for any questions on your order.",
                               onSuccess: (Map params) async {
-                                print("onSuccess: $params");
                                 makeABill();
                                 payState.checkPay.value = await true;
                               },
@@ -217,7 +226,6 @@ class _PayPageState extends State<PayPage> {
                               },
                               onCancel: (params) {
                                 print('cancelled: $params');
-                                print("ĐÃ HỦy");
                               }),
                         ),
                       );

@@ -68,7 +68,6 @@ class _CartPageState extends State<CartPage> {
                                     dense: true,
                                     value: listCheck.list_check[reversedIndex],
                                     onChanged: (bool? value) {
-                                      print(index);
                                       setState(() {
                                         if (listCheck
                                                 .list_check[reversedIndex] ==

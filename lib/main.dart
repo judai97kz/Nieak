@@ -1,7 +1,9 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nieak/onlines/statepages/startup_state.dart';
+import 'package:nieak/onlines/view_pages/disconnect_page.dart';
 import 'onlines/view_pages/login_page.dart';
 
 Future<void> main() async {
@@ -24,17 +26,22 @@ class StartUp extends StatefulWidget {
 
 class _StartUpState extends State<StartUp> {
   final startupstate = Get.put(StartUpState());
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    startupstate.CheckAuto(context);
+    try{
+      startupstate.checkConnect(context);
+    }catch(e){
+      print(e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()=> startupstate.checkstartup == true
+    return Obx(()=>startupstate.check_connect==false?DisconnectPage():Obx(()=> startupstate.checkstartup == true
         ? LoginPage()
-        : Container(child: Center(child: CircularProgressIndicator())));
+        : Container(child: Center(child: CircularProgressIndicator()))));
   }
 }

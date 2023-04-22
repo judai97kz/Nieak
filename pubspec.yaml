@@ -51,7 +51,7 @@ dependencies:
   fluttertoast: any
   anim_search_bar: ^2.0.3
   google_sign_in: any
-
+  connectivity: ^3.0.6
 
 
 dev_dependencies:

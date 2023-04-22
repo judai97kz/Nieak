@@ -26,7 +26,7 @@ Widget MiniProduct(BuildContext context, Map<String, dynamic> shoes) {
                 : Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                       child: Container(
                         color: Colors.red,
                         height: 45,
