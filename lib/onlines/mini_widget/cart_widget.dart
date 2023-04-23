@@ -94,9 +94,9 @@ Widget CartWidget(
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                 child: Container(
-                                  width: 40,
+                                  width: 30,
                                   height: 20,
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.black)),

@@ -48,10 +48,15 @@ class HomeModelView extends GetxController {
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
         await FirebaseFirestore.instance.collection('product').get();
     final listTemp = querySnapshot.docs.map((doc) => doc.data()).toList();
-    list_product.value = listTemp
-        .where((element) =>
-            element['nameshoes'].contains(key.toLowerCase().capitalize))
-        .toList();
+    List<String> danhSachTu = key.trim()!.split(" ");
+    var list_temp = listTemp;
+    for (String tu in danhSachTu) {
+      var tu_temp = tu.toLowerCase();
+      list_temp = list_temp.where((element) =>
+          element['nameshoes'].toLowerCase().contains(tu_temp))
+          .toList();
+    }
+    list_product.value = list_temp;
     if (list_product.value.length == 0) {
       find_result.value = true;
     } else {

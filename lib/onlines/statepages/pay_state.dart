@@ -26,7 +26,6 @@ class PayState extends GetxController {
       }
     }
     allsum.value = sum;
-    print(sum);
     sum = 0;
   }
 

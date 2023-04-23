@@ -40,12 +40,14 @@ class _PayPageState extends State<PayPage> {
     }
     BillModel bill = BillModel(
         idbill: '${userInfo.uidtemp.value}${date}',
-        iduser: userInfo.uidtemp.value,
+        iduser: userInfo.user.value!.id,
+        username: userInfo.user.value!.name,
         datecreate: date,
         content: list,
         allprice: payState.allsum.value,
         acceptstate: false,
-        receivestate: false);
+        receivestate: false,
+        userphone: userInfo.user.value!.phone,addressreceive: userInfo.user.value!.address);
     var temp = '${userInfo.uidtemp.value}${date}';
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection('bill').doc(temp).set(bill.toJson());

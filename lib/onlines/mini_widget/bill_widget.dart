@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:intl/intl.dart';
 import 'package:nieak/onlines/modelviews/bill_modelview.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
@@ -22,7 +20,7 @@ Widget BillWidget(BuildContext context, Map<String, dynamic> product) {
           Padding(
             padding: const EdgeInsets.all(1.0),
             child: Text(
-                "Mã Hóa Đơn: ${product['iduser']}-${product['datecreate']}"),
+                "Mã Hóa Đơn: ${product['idbill']}"),
           ),
           Container(
             decoration: BoxDecoration(border: Border.all(color: Colors.black)),
@@ -70,6 +68,9 @@ Widget BillWidget(BuildContext context, Map<String, dynamic> product) {
             child: Text(
                 "Tình trạng: ${product['acceptstate'] == true ? "Đã xác nhận" : "Chưa xác nhận"}"),
           ),
+          Center(child: ElevatedButton(onPressed: (){billModel.generatePdf(product,context);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Đã lưu vào thư mục /storage/emulated/0/Android/data/com.judai.nieak/files")));
+            }, child: Text("In hóa đơn"))),
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Stack(
@@ -105,7 +106,7 @@ Widget BillWidget(BuildContext context, Map<String, dynamic> product) {
                               AlertDialog dialog = AlertDialog(
                                 title: Text("Thông Báo"),
                                 content: Text(
-                                    "Bạn có chắc rằng là bạn muốn xóa đơn hàng !"),
+                                    "Bạn có chắc rằng là bạn muốn xóa đơn hàng !\n(Chú ý: bạn hãy chụp lại đơn hàng hoặc in hóa đơn trước khi hủy đơn hàng để làm chứng cứ khi liên hệ với nhân viên để được hoàn tiền!)"),
                                 actions: [
                                   ElevatedButton(
                                       onPressed: () async {
