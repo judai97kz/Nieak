@@ -70,7 +70,7 @@ class HomeModelView extends GetxController {
     final listTemp = querySnapshot.docs.map((doc) => doc.data()).toList();
     list_product.value = listTemp
         .where((element) =>
-            element['idshoes'].contains(key.toLowerCase().capitalize))
+            element['idshoes'].toLowerCase().contains(key.toLowerCase()))
         .toList();
   }
 

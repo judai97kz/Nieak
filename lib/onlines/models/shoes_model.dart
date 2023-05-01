@@ -2,7 +2,6 @@ class ShoesModel {
   final String idshoes;
   final String nameshoes;
   final List<String> image;
-  final int imagenumber;
   final int price;
   final int amount;
   final double rating;
@@ -17,7 +16,6 @@ class ShoesModel {
       {required this.idshoes,
       required this.nameshoes,
       required this.image,
-      required this.imagenumber,
       required this.price,
       required this.amount,
       required this.rating,
@@ -32,7 +30,6 @@ class ShoesModel {
       idshoes: json['idshoes'],
       nameshoes: json['nameshoes'],
       image: json['image'],
-      imagenumber: json['imagenumber'],
       price: json['price'],
       amount: json['amount'],
       rating: json['rating'],
@@ -47,7 +44,6 @@ class ShoesModel {
         'idshoes': idshoes,
         'nameshoes': nameshoes,
         'image': image,
-        'imagenumber': imagenumber,
         'price': price,
         'amount': amount,
         'rating': rating,

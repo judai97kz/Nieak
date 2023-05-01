@@ -32,6 +32,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
   final homeModel = Get.put(HomeModelView());
   final _commentController = TextEditingController();
   final managementState = Get.put(ManagementState());
+
   Future<void> _onRefresh() async {
     setState(() {
       print("Hello");
@@ -68,13 +69,13 @@ class _InfoProductPageState extends State<InfoProductPage> {
     // TODO: implement initState
     super.initState();
     ipState.size.value = widget.shoe['minsize'];
-
     commentModel.getAllComment(widget.shoe['idshoes']);
     commentModel.rate.value = double.parse(widget.shoe['rating'].toString());
   }
 
   @override
   Widget build(BuildContext context) {
+    int imageamount = widget.shoe['image'].length;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -129,9 +130,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
                                 border: Border.all(color: Colors.black)),
                             child: CarouselSlider(
                                 items: [
-                                  for (int i = 0;
-                                      i < widget.shoe['imagenumber'];
-                                      i++)
+                                  for (int i = 0; i < imageamount; i++)
                                     Container(
                                       child: GestureDetector(
                                         child: Stack(
@@ -158,7 +157,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
                                                               157,
                                                               91)),
                                                       child: Text(
-                                                          "  ${i + 1}/${widget.shoe['imagenumber']}  "))),
+                                                          "  ${i + 1}/${imageamount}  "))),
                                             )
                                           ],
                                         ),
@@ -177,15 +176,19 @@ class _InfoProductPageState extends State<InfoProductPage> {
                         ),
                         Container(
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  child: Text(
-                                    widget.shoe['nameshoes'],
-                                    textAlign: TextAlign.left,
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    child: Text(
+                                      widget.shoe['nameshoes'],
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                      textAlign: TextAlign.left,
+                                    ),
                                   ),
-                                  width: 300,
                                 ),
                               ),
                               widget.shoe["sale"] == 0
@@ -217,7 +220,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
                             ],
                           ),
                         ),
-                        widget.shoe["price"] == 0
+                        widget.shoe["sale"] == 0
                             ? Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Align(
@@ -225,7 +228,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
                                     child: Container(
                                         child: Text(
                                       "${myFormat.format(widget.shoe["price"])} đ",
-                                      style: TextStyle(color: Colors.red),
+                                      style: TextStyle(color: Colors.red,fontSize: 18),
                                     ))),
                               )
                             : Padding(
@@ -241,7 +244,7 @@ class _InfoProductPageState extends State<InfoProductPage> {
                                               TextDecoration.lineThrough),
                                     ))),
                               ),
-                        widget.shoe["price"] == 0
+                        widget.shoe["sale"] == 0
                             ? SizedBox(
                                 height: 0,
                               )

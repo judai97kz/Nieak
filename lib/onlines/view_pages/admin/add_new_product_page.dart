@@ -227,7 +227,6 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                         _amoutshoes.text,
                         _colorshoes.text,
                         files,context );
-                    homestate.GetAllProduct();
                   },
                   child: Text("Thêm sản phẩm"))
             ],

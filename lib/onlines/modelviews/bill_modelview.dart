@@ -162,36 +162,36 @@ class BillModelView extends GetxController {
                       padding: pw.EdgeInsets.all(3.0),
                       child: pw.Center(
                           child: pw.Text("Tên Người Nhận:",
-                              style: pw.TextStyle(font: ttf, fontSize: 8)))),
+                              style: pw.TextStyle(font: ttf, fontSize: 12)))),
                   pw.Padding(
                       padding: pw.EdgeInsets.all(3.0),
                       child: pw.Center(
                           child: pw.Text(bill["username"],
-                              style: pw.TextStyle(font: ttf, fontSize: 8)))),
+                              style: pw.TextStyle(font: ttf, fontSize: 12)))),
                 ]),
                 pw.TableRow(children: [
                   pw.Padding(
                       padding: pw.EdgeInsets.all(3.0),
                       child: pw.Center(
                           child: pw.Text("Số điện thoại:",
-                              style: pw.TextStyle(font: ttf, fontSize: 8)))),
+                              style: pw.TextStyle(font: ttf, fontSize: 12)))),
                   pw.Padding(
                       padding: pw.EdgeInsets.all(3.0),
                       child: pw.Center(
                           child: pw.Text(bill["userphone"],
-                              style: pw.TextStyle(font: ttf, fontSize: 8)))),
+                              style: pw.TextStyle(font: ttf, fontSize: 12)))),
                 ]),
                 pw.TableRow(children: [
                   pw.Padding(
                       padding: pw.EdgeInsets.all(3.0),
                       child: pw.Center(
                           child: pw.Text("Địa chỉ:",
-                              style: pw.TextStyle(font: ttf, fontSize: 8)))),
+                              style: pw.TextStyle(font: ttf, fontSize: 12)))),
                   pw.Padding(
                       padding: pw.EdgeInsets.all(3.0),
                       child: pw.Center(
                           child: pw.Text(bill["addressreceive"],
-                              style: pw.TextStyle(font: ttf, fontSize: 8)))),
+                              style: pw.TextStyle(font: ttf, fontSize: 12)))),
                 ]),
               ]),
             ),

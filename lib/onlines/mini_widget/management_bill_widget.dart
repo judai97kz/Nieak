@@ -20,6 +20,10 @@ Widget ManagementBillWidget(
             padding: const EdgeInsets.all(1.0),
             child: Text("Mã Hóa Đơn: ${product['idbill']}"),
           ),
+          Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: Text("Khách hàng: ${product['username']}"),
+          ),
           Container(
             decoration: BoxDecoration(border: Border.all(color: Colors.black)),
           ),

@@ -20,7 +20,7 @@ Widget MiniProduct(BuildContext context, Map<String, dynamic> shoes) {
                   child: Image.network(shoes["image"][0])),
             ),
             shoes['sale'] == 0
-                ? SizedBox(
+                ? const SizedBox(
                     height: 0,
                   )
                 : Align(
@@ -36,7 +36,7 @@ Widget MiniProduct(BuildContext context, Map<String, dynamic> shoes) {
                           child: Text(
                             "Sale ${shoes['sale']}%",
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10),
@@ -48,25 +48,13 @@ Widget MiniProduct(BuildContext context, Map<String, dynamic> shoes) {
         ),
         Padding(
           padding: const EdgeInsets.all(2.0),
-          child: Text(shoes["nameshoes"],overflow: TextOverflow.ellipsis,),
+          child: Text(shoes["nameshoes"],overflow: TextOverflow.ellipsis,maxLines: shoes['sale'] == 0? 3:2,),
         ),
         SizedBox(
-          height: 20,
+          height: 10,
         ),
         shoes['sale'] == 0
-            ? Stack(
-                children: [
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Text(
-                          "${myFormat.format(shoes["price"])}đ",
-                          style: TextStyle(color: Colors.red),
-                        ),
-                      ))
-                ],
-              )
+            ? SizedBox(height: 0,)
             : Stack(
                 children: [
                   Align(
@@ -83,15 +71,25 @@ Widget MiniProduct(BuildContext context, Map<String, dynamic> shoes) {
                 ],
               ),
         shoes['sale'] == 0
-            ? SizedBox(
-                height: 0,
-              )
+            ? Stack(
+          children: [
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Text(
+                    "${myFormat.format(shoes["price"])}đ",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ))
+          ],
+        )
             : Stack(
                 children: [
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: const EdgeInsets.all(.0),
+                        padding: const EdgeInsets.fromLTRB(4, 0, 2, 0),
                         child: Text(
                           "Giá khuyến mãi: \n ${myFormat.format((shoes["price"] * (100 - shoes['sale'])) / 100)}đ",
                           style: TextStyle(color: Colors.red),
@@ -103,10 +101,16 @@ Widget MiniProduct(BuildContext context, Map<String, dynamic> shoes) {
             ? shoes['amount'] == 0
                 ? Align(
                     alignment: Alignment.centerLeft,
-                    child: Container(child: Text("Hết hàng")))
-                : Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(child: Text("Còn hàng")))
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Container(child: Text("Hết hàng")),
+                    ))
+                : Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(child: Text("Còn hàng"))),
+                )
             : SizedBox(
                 height: 0,
               )

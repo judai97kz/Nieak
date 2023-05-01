@@ -26,7 +26,7 @@ class _BillPageState extends State<BillPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Hóa Đơn Mua Hàng"),),
-      body: Obx(()=>billModel.list_bill.length==0?CircularProgressIndicator():ListView.builder(
+      body: Obx(()=>billModel.list_bill.length==0?Center(child: CircularProgressIndicator()):ListView.builder(
         itemCount: billModel.list_bill.length,
         itemBuilder: (context,index){
           return BillWidget(context, billModel.list_bill[index]);

@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     homeModel.GetAllProduct();
     homeModel.GetAllBrand();
+    homeState.categoryState.value="All";
     homeModel.GetImageBanner();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels > 100 &&
@@ -85,6 +86,11 @@ class _HomePageState extends State<HomePage> {
                       onSubmitted: (key) {
                         homeState.categoryState.value="All";
                         homeModel.GetProductTemp(findtext.text);
+                        _scrollController.animateTo(
+                          0.0,
+                          duration: Duration(milliseconds: 1),
+                          curve: Curves.easeInOut,
+                        );
                       },
                     ),
                   ),
@@ -94,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
+
                   ),
                 ),
               ),
@@ -148,71 +154,81 @@ class _HomePageState extends State<HomePage> {
                                           )
                                       ],
                                     ),
-                              toolbarHeight: 150,
+                              toolbarHeight: 200,
                             ))
                       ];
                     },
                     body: Column(
                       children: [
-                        Container(
-                            height: 40,
-                            width: double.infinity,
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                          child: Container(
+                              height: 50,
+                              width: double.infinity,
 // ignore: avoid_unnecessary_containers
-                            child: Obx(
-                              () => ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemCount: homeModel.list_brand.length,
-                                  itemBuilder: (context, index) =>
-                                      GestureDetector(
-                                        onTap: () {
-                                          if (homeModel.list_brand[index] ==
-                                              'All') {
-                                            homeModel.GetAllProduct();
-                                          } else {
-                                            homeModel.GetProductByBrand(
-                                                homeModel.list_brand[index]);
-                                          }
-                                          homeState.categoryState.value=homeModel.list_brand[index];
-                                        },
-                                        child: Obx(()=>homeState.categoryState==homeModel.list_brand[index]?Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Container(
-                                            width: 60,
-                                            height: 40,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(color: Colors.black),
-                                                borderRadius:
-                                                BorderRadius.circular(5),
-                                                color: Colors.white),
-                                            child: Center(
-                                              child: Text(
-                                                homeModel.list_brand[index],
-                                                style: const TextStyle(
-                                                    color: Colors.black),
+                              child: Obx(
+                                () => ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemCount: homeModel.list_brand.length,
+                                    itemBuilder: (context, index) =>
+                                        GestureDetector(
+                                          onTap: () {
+                                            if (homeModel.list_brand[index] ==
+                                                'All') {
+                                              homeModel.GetAllProduct();
+                                            } else {
+                                              homeModel.GetProductByBrand(
+                                                  homeModel.list_brand[index]);
+                                            }
+                                            homeState.categoryState.value=homeModel.list_brand[index];
+                                            _scrollController.animateTo(
+                                              0.0,
+                                              duration: Duration(milliseconds: 1),
+                                              curve: Curves.easeInOut,
+                                            );
+                                          },
+                                          child: Obx(()=>homeState.categoryState==homeModel.list_brand[index]?Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Container(
+                                              width: 60,
+                                              height: 40,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(color: Colors.black),
+                                                  borderRadius:
+                                                  BorderRadius.circular(5),
+                                                  color: Colors.white),
+                                              child: Center(
+                                                child: Text(
+                                                  homeModel.list_brand[index],
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                      color: Colors.black),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ): Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Container(
-                                            width: 60,
-                                            height: 40,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(5),
-                                                color: Colors.blue),
-                                            child: Center(
-                                              child: Text(
-                                                homeModel.list_brand[index],
-                                                style: const TextStyle(
-                                                    color: Colors.white),
+                                          ): Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Container(
+                                              width: 60,
+                                              height: 40,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(5),
+                                                  color: Colors.blue),
+                                              child: Center(
+                                                child: Text(
+                                                  homeModel.list_brand[index],
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),)
-                                      )),
-                            )),
+                                          ),)
+                                        )),
+                              )),
+                        ),
                         Obx(
                           () => homeModel.list_product.length == 0
                               ? homeModel.find_result == true

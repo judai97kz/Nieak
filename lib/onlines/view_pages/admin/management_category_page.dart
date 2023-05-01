@@ -59,7 +59,7 @@ class _ManagementCategoryPageState extends State<ManagementCategoryPage> {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(SnackBar(
                                                     content: Text(
-                                                        "Đã xóa sản phẩm")));
+                                                        "Đã xóa thương hiệu!")));
                                           },
                                           child: Text("Xác nhận")),
                                       ElevatedButton(
@@ -91,7 +91,7 @@ class _ManagementCategoryPageState extends State<ManagementCategoryPage> {
               ElevatedButton(
                   onPressed: () async {
                     if (value.text != "") {
-                      listBrand.addCategory(value.text);
+                      listBrand.addCategory(value.text.toUpperCase());
                       value.clear();
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

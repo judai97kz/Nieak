@@ -78,7 +78,7 @@ class AddNewProductState extends GetxController {
     colortext.value = "";
     final CollectionReference myCollectionRef =
         FirebaseFirestore.instance.collection('product');
-    final DocumentReference myDocRef = myCollectionRef.doc(id);
+    final DocumentReference myDocRef = myCollectionRef.doc(id.toUpperCase());
     final docSnapshot = await myDocRef.get();
     if (!docSnapshot.exists) {
       if (files.length > 0) {
@@ -97,10 +97,9 @@ class AddNewProductState extends GetxController {
             "https://firebasestorage.googleapis.com/v0/b/nieak-cc562.appspot.com/o/errorimage%2FnoImage.png?alt=media&token=ada38ac7-8f4d-4f26-a6fd-8cd24e7e660c");
       }
       ShoesModel newshoe = ShoesModel(
-          idshoes: id,
+          idshoes: id.toUpperCase(),
           nameshoes: name,
           image: ListUrl,
-          imagenumber: ListUrl.length,
           price: int.parse(price),
           amount: int.parse(amount),
           rating: 0.0,
@@ -111,17 +110,17 @@ class AddNewProductState extends GetxController {
           dateadd: DateTime.now().toString(),sale: 0);
       FirebaseFirestore.instance
           .collection("product")
-          .doc(id)
+          .doc(id.toUpperCase())
           .set(newshoe.toJson());
-
       ListUrl.value = [];
+      defaulValue.value ="";
       homestate.GetAllProduct();
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Thêm Sản Phẩm Thành Công!')));
       Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Sản Phẩm Đã Tồn Tại!')));
+          .showSnackBar(const SnackBar(content: Text('Mã Sản Phẩm Đã Tồn Tại!')));
     }
   }
 
@@ -187,7 +186,7 @@ class AddNewProductState extends GetxController {
       UploadTask? uploadTask;
       print(id.trim());
       final FirebaseStorage storage = FirebaseStorage.instance;
-      final Reference folderRef = storage.ref().child('/Products/${id}');
+      final Reference folderRef = storage.ref().child('/Products/${id.toUpperCase()}');
 
 // Lấy danh sách tất cả các tệp trong thư mục
       folderRef.listAll().then((result) {
@@ -210,7 +209,7 @@ class AddNewProductState extends GetxController {
       });
 
       for (int i = 0; i < files.length; i++) {
-        final path = 'Products/${id}/${i}';
+        final path = 'Products/${id.toUpperCase()}/${i}';
         final file = File(files[i].path);
         final ref = FirebaseStorage.instance.ref().child(path);
         uploadTask = ref.putFile(file);
@@ -224,10 +223,9 @@ class AddNewProductState extends GetxController {
       ListUrl.value = stringList;
     }
     ShoesModel newshoe = ShoesModel(
-        idshoes: id,
+        idshoes: id.toUpperCase(),
         nameshoes: name,
         image: ListUrl,
-        imagenumber: ListUrl.length,
         price: int.parse(price),
         amount: int.parse(amount),
         rating: 0.0,
@@ -239,7 +237,7 @@ class AddNewProductState extends GetxController {
     sale: 0);
     FirebaseFirestore.instance
         .collection("product")
-        .doc(id)
+        .doc(id.toUpperCase())
         .update(newshoe.toJson());
     ListUrl.value = [];
     homestate.GetAllProduct();
