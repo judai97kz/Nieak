@@ -2,6 +2,7 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nieak/onlines/mini_widget/product_widget.dart';
@@ -9,6 +10,7 @@ import 'package:nieak/onlines/modelviews/cart_modelview.dart';
 import 'package:nieak/onlines/modelviews/user_state.dart';
 import 'package:nieak/onlines/statepages/cart_state.dart';
 import 'package:nieak/onlines/statepages/main_state.dart';
+import 'package:nieak/onlines/statepages/management_state.dart';
 import 'package:nieak/onlines/statepages/orient_state.dart';
 import 'package:nieak/onlines/view_pages/info_product_page.dart';
 
@@ -31,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   final cartState = Get.put(CartState());
   final cartModel = Get.put(CartModelView());
   final homeState = Get.put(HomeState());
+  final managementState= Get.put(ManagementState());
   @override
   void initState() {
     // TODO: implement initState
@@ -46,6 +49,15 @@ class _HomePageState extends State<HomePage> {
       } else if (_scrollController.position.pixels <= 100 &&
           homeState.showScrollButton.value) {
         homeState.showScrollButton.value = false;
+      }
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+       managementState.hidebar.value=true;
+      }
+      // Khi ListView được cuộn xuống, hiển thị thanh điều hướng
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        managementState.hidebar.value = false;
       }
     });
   }

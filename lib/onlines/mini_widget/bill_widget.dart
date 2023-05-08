@@ -86,7 +86,7 @@ Widget BillWidget(BuildContext context, Map<String, dynamic> product) {
                                   billState.updateReveiceState(
                                       product['idbill'], iduser.uidtemp.value);
                                 },
-                          child: Text("Đã nhận đươc hàng"),
+                          child: Text("Đã nhận được hàng"),
                         ),
                       )
                     : SizedBox(
