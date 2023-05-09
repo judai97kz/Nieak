@@ -74,7 +74,7 @@ Widget ManagementBillWidget(
           SizedBox(
             height: 20,
           ),
-          Padding(
+          product['receivestate'] == true? Center(child: Text("Đơn Hàng Đã Bị Người Dùng Hủy",style: TextStyle(color: Colors.red),)) : Padding(
             padding: const EdgeInsets.all(5.0),
             child: Text(
                 "Tình trạng: ${product['receivestate'] == true ? "Đã nhận hàng" : "Chưa nhận hàng"}"),
@@ -84,7 +84,7 @@ Widget ManagementBillWidget(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                onPressed: product['acceptstate'] == true
+                onPressed: product['receivestate'] == true? null: product['acceptstate'] == true
                     ? null
                     : () {
                         final bill = Get.put(BillModelView());

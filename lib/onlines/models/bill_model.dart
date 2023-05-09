@@ -9,6 +9,7 @@ class BillModel {
   final String idbill;
   final String userphone;
   final String addressreceive;
+  final bool cancel;
   BillModel(
       {required this.iduser,
       required this.username,
@@ -19,7 +20,8 @@ class BillModel {
       required this.receivestate,
       required this.idbill,
       required this.userphone,
-      required this.addressreceive});
+      required this.addressreceive,
+      required this.cancel});
 
   factory BillModel.fromJson(Map<String, dynamic> json) => BillModel(
       iduser: json['idbill'],
@@ -31,7 +33,8 @@ class BillModel {
       receivestate: json['receivestate'],
       idbill: json['idbill'],
       userphone: json['userphone'],
-      addressreceive: json['addressreceive']);
+      addressreceive: json['addressreceive'],
+  cancel: json['cancel']);
 
   Map<String, dynamic> toJson() => {
       'iduser':iduser,
@@ -43,6 +46,7 @@ class BillModel {
         'receivestate': receivestate,
         'idbill': idbill,
         'userphone': userphone,
-        'addressreceive': addressreceive
+        'addressreceive': addressreceive,
+    'cancel':cancel
       };
 }

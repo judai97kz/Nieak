@@ -16,12 +16,11 @@ class BillModelView extends GetxController {
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
         .instance
         .collection('bill')
-        .where('iduser', isEqualTo: iduser)
+        .where('iduser', isEqualTo: iduser).where('cancel', isEqualTo:false)
         .get();
     list_bill.value = querySnapshot.docs.map((doc) => doc.data()).toList();
   }
 
-  makeABill() {}
   getAllBill() async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
         await FirebaseFirestore.instance.collection('bill').get();
@@ -48,7 +47,7 @@ class BillModelView extends GetxController {
   }
 
   deleteBill(String id, String iduser) {
-    FirebaseFirestore.instance.collection('bill').doc(id).delete();
+    FirebaseFirestore.instance.collection('bill').doc(id).update({'cancel':true});
     getBillUser(iduser);
   }
 

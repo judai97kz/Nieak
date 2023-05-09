@@ -33,13 +33,11 @@ class _PayPageState extends State<PayPage> {
     var date = DateTime.now().toString();
     var list = [];
     for (int i = 0; i < cartTemp.list_temp.length; i++) {
-      // firestore.collection('bill').doc(temp).update({
-      //   'content': FieldValue.arrayUnion([cartTemp.list_temp[i]]),
-      // });
       list.add(cartTemp.list_temp[i]);
     }
     BillModel bill = BillModel(
         idbill: '${userInfo.uidtemp.value}${date}',
+        cancel: false,
         iduser: userInfo.user.value!.id,
         username: userInfo.user.value!.name,
         datecreate: date,
