@@ -24,11 +24,6 @@ class _PayPageState extends State<PayPage> {
   NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
   final listProduct = [];
 
-  String countryValue = "";
-  String stateValue = "";
-  String cityValue = "";
-  String address = "";
-
   Future<void> makeABill() async {
     var date = DateTime.now().toString();
     var list = [];

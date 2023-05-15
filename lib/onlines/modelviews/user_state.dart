@@ -14,7 +14,6 @@ class UserState extends GetxController {
 
   checkEmailVerified(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser;
-    print(user);
     final loginuser = LoginModelView();
     showDialog(
       context: context,
@@ -38,11 +37,9 @@ class UserState extends GetxController {
   }
 
   InfoUser(String idUser) async {
-    print("idUser: ${idUser}");
     DocumentSnapshot<Map<String, dynamic>> snapshot =
         await FirebaseFirestore.instance.collection('user').doc(idUser).get();
     UserModel theUser = UserModel.fromJson(snapshot.data()!);
-    print("the user;${theUser.name}");
     user.value = theUser;
   }
 }

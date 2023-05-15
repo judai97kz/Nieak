@@ -18,7 +18,6 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   final cartModel = Get.put(CartModelView());
   final uidtemp = Get.put(UserState());
-
   final listCheck = Get.put(CartState());
   List<Map<String, dynamic>> list_temp = [];
   @override

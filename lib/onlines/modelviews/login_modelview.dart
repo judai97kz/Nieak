@@ -42,7 +42,6 @@ class LoginModelView {
               MaterialPageRoute(builder: (context) => VertifyEmailPage()));
         }
       } catch (e) {
-        print("lo");
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -68,7 +67,6 @@ class LoginModelView {
         phoneNumber: phonenumber,
         verificationCompleted: (PhoneAuthCredential credential) async {},
         verificationFailed: (FirebaseAuthException e) {
-          print("Loi");
         },
         codeSent: (verificationId, forceResendingToken) {
           print(verificationId);

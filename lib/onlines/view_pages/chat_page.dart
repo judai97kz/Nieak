@@ -17,7 +17,6 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messageController = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final userInfo = Get.put(UserState());
-  // Thay thế bằng ID phòng chat của bạn
   Future<void> sendMessage() async {
     if (_messageController.text.isNotEmpty) {
       await _firestore

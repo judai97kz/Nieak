@@ -21,7 +21,6 @@ class VertifyModelView extends GetxController {
       await prefs.setString('uid', uid);
       await roleuser.InfoUser(uid);
       if (docSnapshot['disable'] == true) {
-        print("Vo");
       } else {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => ManagementPage()));

@@ -16,7 +16,6 @@ class HomeModelView extends GetxController {
         FirebaseFirestore.instance.collection('categories');
     DocumentSnapshot myDocument = await myCollection.doc('Brand').get();
     List<dynamic> myArray = myDocument['brands'];
-    print(myArray);
     list_brand.value = myArray;
   }
 

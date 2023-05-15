@@ -35,21 +35,14 @@ class CartModelView extends GetxController{
     _firestore.collection('user').doc(documentId.trim());
     DocumentSnapshot docSnapshot = await documentReference.get();
     Map<String, dynamic> docData = docSnapshot.data() as Map<String, dynamic>;
-
-    // Tìm kiếm mục dữ liệu bạn muốn kiểm tra và kiểm tra xem nó có phải là danh sách các Map không
     if (docData.containsKey(fieldName) && docData[fieldName] is List) {
       List<Map<String, dynamic>> mapList =
       List<Map<String, dynamic>>.from(docData[fieldName]);
-
-      // Tìm map trong danh sách dựa trên thuộc tính nameproduct và size
       int existingMapIndex = mapList.indexWhere((element) =>
       element['idshoes'] == mapToAdd['idshoes'] &&
           element['size'] == mapToAdd['size']);
-
       mapList[existingMapIndex]['amount'] = value;
       getAllMapsInArray(userModel.user.value!.id);
-
-      // Cập nhật dữ liệu trong Firestore
       await documentReference.update({fieldName: mapList});
     } else {
       throw Exception('Invalid data structure or missing key');
@@ -57,7 +50,6 @@ class CartModelView extends GetxController{
   }
 
   addAmount(Map<String,dynamic> shoe) async {
-
     final homeModel = Get.put(HomeModelView());
     final userModel = Get.put(UserState());
     var temp = homeModel.list_product.firstWhere((element) => element['idshoes']==shoe['idshoes']);

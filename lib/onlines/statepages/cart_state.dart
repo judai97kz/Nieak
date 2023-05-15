@@ -7,7 +7,6 @@ class CartState extends GetxController{
   createList(int n){
     List<bool> boolList = List.generate(n, (index) => false);
     list_check.value = boolList;
-    print(list_check);
   }
   checkTrue(){
     for(int i=0;i<list_check.length;i++){

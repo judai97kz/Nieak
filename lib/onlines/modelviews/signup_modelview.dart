@@ -37,10 +37,8 @@ class SignUpModelView extends GetxController {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Navigator.pop(context);
-        print('Mật khẩu quá yếu.');
       } else if (e.code == 'email-already-in-use') {
         Navigator.pop(context);
-        print('Email đã được sử dụng.');
         signupaction.emailstate.value = "Email đã được sử dụng.";
       }
     } catch (e) {

@@ -29,7 +29,6 @@ class BillModelView extends GetxController {
   }
 
   updateAcceptState(String id) {
-    print(id);
     FirebaseFirestore.instance
         .collection('bill')
         .doc(id)
