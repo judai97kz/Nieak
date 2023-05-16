@@ -34,7 +34,7 @@ class BillModel {
       idbill: json['idbill'],
       userphone: json['userphone'],
       addressreceive: json['addressreceive'],
-  cancel: json['cancel']);
+      cancel: json['cancel']);
 
   Map<String, dynamic> toJson() => {
       'iduser':iduser,
